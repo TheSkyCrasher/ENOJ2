@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="obj_loader.h">
+      <Filter>Engine core\Game\obj_loader</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Engine core\Graphics\stb_image</Filter>
+    </ClInclude>
+    <ClInclude Include="window.h">
+      <Filter>Engine core\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh.h">
+      <Filter>Engine core\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="shader.h">
+      <Filter>Engine core\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>Engine core\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Engine core\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>Engine core\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="util.h">
+      <Filter>Engine core\Stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="timer.h">
+      <Filter>Engine core\Stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="debugTimer.h">
+      <Filter>Engine core\Stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="math.h">
+      <Filter>Engine core\Stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObject.h">
+      <Filter>Engine core\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="transform.h">
+      <Filter>Engine core\Stuff</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Game core</Filter>
+    </ClCompile>
+    <ClCompile Include="obj_loader.cpp">
+      <Filter>Engine core\Game\obj_loader</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image.c">
+      <Filter>Engine core\Graphics\stb_image</Filter>
+    </ClCompile>
+    <ClCompile Include="window.cpp">
+      <Filter>Engine core\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh.cpp">
+      <Filter>Engine core\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="shader.cpp">
+      <Filter>Engine core\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>Engine core\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>Engine core\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="timer.cpp">
+      <Filter>Engine core\Stuff</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Engine core\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="math.cpp">
+      <Filter>Engine core\Stuff</Filter>
+    </ClCompile>
+    <ClCompile Include="gameObject.cpp">
+      <Filter>Engine core\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="transform.cpp">
+      <Filter>Engine core\Stuff</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Engine core">
+      <UniqueIdentifier>{42dd1fcb-7566-4586-aed1-0e5091351256}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game core">
+      <UniqueIdentifier>{c9d3fa7f-95f5-4621-ad14-e1d5bb8a62a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine core\Graphics">
+      <UniqueIdentifier>{0c3fc4e2-185a-4c92-a8dd-dbdc5c14737a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine core\Game">
+      <UniqueIdentifier>{f9df7c97-dd64-448f-a0a1-5fd0c5a85023}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine core\Stuff">
+      <UniqueIdentifier>{f16b7adc-66db-42a1-a682-60b00857e9be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine core\Graphics\stb_image">
+      <UniqueIdentifier>{2a39349b-49af-462d-bead-ca1a927a3f7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine core\Game\obj_loader">
+      <UniqueIdentifier>{b7d484b0-f38c-4577-a149-4ae04ac36635}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
