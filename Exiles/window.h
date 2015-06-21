@@ -20,6 +20,8 @@ public:
 	static int GetWidth();
 	static int GetHeight();
 	static float GetAspect();
+
+	static void CreateFrameBuffer();
 protected:
 private:
 	void operator=(const Window& display) {}
@@ -31,4 +33,6 @@ private:
 	static SDL_Window* s_window;
 	static SDL_GLContext s_glContext;
 	static bool s_isOpen;
+
+	static GLuint s_frameBuffer;
 };

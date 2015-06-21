@@ -43,6 +43,9 @@
     <ClInclude Include="transform.h">
       <Filter>Engine core\Stuff</Filter>
     </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Engine core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -84,6 +87,9 @@
     <ClCompile Include="transform.cpp">
       <Filter>Engine core\Stuff</Filter>
     </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Engine core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine core">
@@ -107,5 +113,16 @@
     <Filter Include="Engine core\Game\obj_loader">
       <UniqueIdentifier>{b7d484b0-f38c-4577-a149-4ae04ac36635}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine core\Shaders">
+      <UniqueIdentifier>{7e56af06-4b03-4d1c-a783-d5d50aea364a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\testShader.fp">
+      <Filter>Engine core\Shaders</Filter>
+    </None>
+    <None Include="Data\testShader.vp">
+      <Filter>Engine core\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

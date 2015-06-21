@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="camera.h" />
     <ClInclude Include="debugTimer.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="window.h" />
@@ -28,6 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="math.cpp" />
     <ClCompile Include="transform.cpp" />
@@ -40,6 +42,10 @@
     <ClCompile Include="stb_image.c" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="timer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\testShader.fp" />
+    <None Include="Data\testShader.vp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7C6C290B-EA0C-4E3F-8D0A-54CB0A4BE3C3}</ProjectGuid>

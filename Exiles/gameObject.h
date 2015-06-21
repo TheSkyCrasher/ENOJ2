@@ -9,7 +9,7 @@
 class GameObject
 {
 public:
-	GameObject(Mesh* mesh, Texture* texture);
+	GameObject(Mesh* mesh, Texture* texture = new Texture("Data/default.png"));
 	virtual ~GameObject();
 
 	void Draw(Shader* shader, Camera* camera);
