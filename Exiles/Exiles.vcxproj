@@ -44,6 +44,8 @@
     <ClCompile Include="timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Data\shadowMap.fp" />
+    <None Include="Data\shadowMap.vp" />
     <None Include="Data\testShader.fp" />
     <None Include="Data\testShader.vp" />
   </ItemGroup>

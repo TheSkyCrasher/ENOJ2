@@ -2,10 +2,10 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="obj_loader.h">
-      <Filter>Engine core\Game\obj_loader</Filter>
+      <Filter>Engine core\Stuff\obj_loader</Filter>
     </ClInclude>
     <ClInclude Include="stb_image.h">
-      <Filter>Engine core\Graphics\stb_image</Filter>
+      <Filter>Engine core\Stuff\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="window.h">
       <Filter>Engine core\Graphics</Filter>
@@ -20,9 +20,6 @@
       <Filter>Engine core\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="camera.h">
-      <Filter>Engine core\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="input.h">
       <Filter>Engine core\Game</Filter>
     </ClInclude>
     <ClInclude Include="util.h">
@@ -46,16 +43,19 @@
     <ClInclude Include="game.h">
       <Filter>Engine core</Filter>
     </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>Engine core\Stuff</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Game core</Filter>
     </ClCompile>
     <ClCompile Include="obj_loader.cpp">
-      <Filter>Engine core\Game\obj_loader</Filter>
+      <Filter>Engine core\Stuff\obj_loader</Filter>
     </ClCompile>
     <ClCompile Include="stb_image.c">
-      <Filter>Engine core\Graphics\stb_image</Filter>
+      <Filter>Engine core\Stuff\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="window.cpp">
       <Filter>Engine core\Graphics</Filter>
@@ -68,9 +68,6 @@
     </ClCompile>
     <ClCompile Include="texture.cpp">
       <Filter>Engine core\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="input.cpp">
-      <Filter>Engine core\Game</Filter>
     </ClCompile>
     <ClCompile Include="timer.cpp">
       <Filter>Engine core\Stuff</Filter>
@@ -90,6 +87,9 @@
     <ClCompile Include="game.cpp">
       <Filter>Engine core</Filter>
     </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>Engine core\Stuff</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine core">
@@ -107,14 +107,14 @@
     <Filter Include="Engine core\Stuff">
       <UniqueIdentifier>{f16b7adc-66db-42a1-a682-60b00857e9be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine core\Graphics\stb_image">
-      <UniqueIdentifier>{2a39349b-49af-462d-bead-ca1a927a3f7c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine core\Game\obj_loader">
-      <UniqueIdentifier>{b7d484b0-f38c-4577-a149-4ae04ac36635}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine core\Shaders">
       <UniqueIdentifier>{7e56af06-4b03-4d1c-a783-d5d50aea364a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine core\Stuff\obj_loader">
+      <UniqueIdentifier>{b7d484b0-f38c-4577-a149-4ae04ac36635}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine core\Stuff\stb_image">
+      <UniqueIdentifier>{2a39349b-49af-462d-bead-ca1a927a3f7c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -122,6 +122,12 @@
       <Filter>Engine core\Shaders</Filter>
     </None>
     <None Include="Data\testShader.vp">
+      <Filter>Engine core\Shaders</Filter>
+    </None>
+    <None Include="Data\shadowMap.fp">
+      <Filter>Engine core\Shaders</Filter>
+    </None>
+    <None Include="Data\shadowMap.vp">
       <Filter>Engine core\Shaders</Filter>
     </None>
   </ItemGroup>

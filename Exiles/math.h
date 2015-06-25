@@ -578,6 +578,32 @@ public:
 
 		return *this;
 	}
+
+	inline Matrix4<T> LookAt(const Vector3<T>& eye, const Vector3<T>& center, const Vector3<T>& up)
+	{
+		Vector3<T> zaxis = center - eye;
+		zaxis.Normalized();
+		Vector3<T> xaxis = up.Cross(zaxis).Normalized();
+		Vector3<T> yaxis = zaxis.Cross(xaxis);
+
+		(*this)[0][0] = xaxis.GetX();
+		(*this)[0][1] = yaxis.GetX();
+		(*this)[0][2] = zaxis.GetZ();
+
+		(*this)[1][0] = xaxis.GetY();
+		(*this)[1][1] = yaxis.GetY();
+		(*this)[1][2] = zaxis.GetY();
+
+		(*this)[2][0] = xaxis.GetZ();
+		(*this)[2][1] = yaxis.GetZ();
+		(*this)[2][2] = zaxis.GetZ();
+
+		(*this)[3][0] = xaxis.GetX() * (-eye.GetX()) + xaxis.GetY() * (-eye.GetY()) + xaxis.GetZ()*(-eye.GetZ());
+		(*this)[3][1] = yaxis.GetX() * (-eye.GetX()) + yaxis.GetY() * (-eye.GetY()) + yaxis.GetZ()*(-eye.GetZ());
+		(*this)[3][2] = zaxis.GetX() * (-eye.GetX()) + zaxis.GetY() * (-eye.GetY()) + zaxis.GetZ()*(-eye.GetZ());
+
+		return *this;
+	}
 protected:
 private:
 };

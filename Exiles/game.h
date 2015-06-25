@@ -16,7 +16,7 @@
 class Game
 {
 public:
-	Game();
+	Game() : m_defaultShader("Data/testShader") {}
 	virtual ~Game();
 
 	void Start();
@@ -26,10 +26,9 @@ public:
 
 	void AddToScene(GameObject* gameObject) { m_objects.push_back(gameObject); }
 	void SetCamera(Camera* camera) { m_mainCamera = camera; }
-
-
 private:
 	std::vector<GameObject*> m_objects;
 	Camera* m_mainCamera;
 	GLuint m_screenTexture;
+	Shader m_defaultShader;
 };

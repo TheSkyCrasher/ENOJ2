@@ -23,7 +23,7 @@ public:
 	inline const Vector3f& GetPos() const { return m_pos; }
 	inline Quaternion& GetRot() { return m_rot; }
 	inline const Quaternion& GetRot() const { return m_rot; }
-	inline float GetScale() const { return m_scale; }
+	inline Vector3f GetScale() const { return m_scale; }
 
 	inline Vector3f GetTransformedPos() const { return Vector3f(GetParentMatrix().Transform(m_pos)); }
 	inline Quaternion GetTransformedRot() const

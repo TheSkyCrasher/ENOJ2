@@ -12,6 +12,7 @@ public:
 	GameObject(Mesh* mesh, Texture* texture = new Texture("Data/default.png"));
 	virtual ~GameObject();
 
+	void RenderMesh(Shader* shader, Camera* camera);
 	void Draw(Shader* shader, Camera* camera);
 
 	inline Transform& GetTransform() { return m_transform; }

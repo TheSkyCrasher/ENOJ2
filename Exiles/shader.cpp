@@ -5,10 +5,10 @@
 Shader::Shader(const std::string& fileName)
 {
 	m_program = glCreateProgram();
-	m_shaders[0] = CreateShader(LoadShader(fileName + ".vs"), GL_VERTEX_SHADER);
-	m_shaders[1] = CreateShader(LoadShader(fileName + ".fs"), GL_FRAGMENT_SHADER);
+	m_shaders[0] = CreateShader(LoadShader(fileName + ".vp"), GL_VERTEX_SHADER);
+	m_shaders[1] = CreateShader(LoadShader(fileName + ".fp"), GL_FRAGMENT_SHADER);
 
-	for(unsigned int i = 0; i < NUM_SHADERS; i++)
+	for (unsigned int i = 0; i < NUM_SHADERS; i++)
 		glAttachShader(m_program, m_shaders[i]);
 
 	glBindAttribLocation(m_program, 0, "position");
@@ -24,6 +24,7 @@ Shader::Shader(const std::string& fileName)
 	m_uniforms[0] = glGetUniformLocation(m_program, "MVP");
 	m_uniforms[1] = glGetUniformLocation(m_program, "Normal");
 	m_uniforms[2] = glGetUniformLocation(m_program, "lightDirection");
+	m_uniforms[3] = glGetUniformLocation(m_program, "lightMVP");
 }
 
 Shader::~Shader()
@@ -44,12 +45,12 @@ void Shader::Bind()
 
 void Shader::Update(const Transform& transform, const Camera& camera)
 {
-	Matrix4f MVP = camera.GetViewProjection();
+	Matrix4f MVP = camera.GetViewProjection() * transform.GetTransformation();
 	Matrix4f Normal = transform.GetTransformation();
 
 	glUniformMatrix4fv(m_uniforms[0], 1, GL_FALSE, &MVP[0][0]);
 	glUniformMatrix4fv(m_uniforms[1], 1, GL_FALSE, &Normal[0][0]);
-	glUniform3f(m_uniforms[2], 0.0f, 0.0f, 1.0f);
+	glUniform3f(m_uniforms[2], 0.0f, -0.5f, 1.0f);
 }
 
 std::string Shader::LoadShader(const std::string& fileName)

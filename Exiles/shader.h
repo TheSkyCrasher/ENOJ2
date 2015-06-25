@@ -12,10 +12,12 @@ public:
 	void Bind();
 	void Update(const Transform& transform, const Camera& camera);
 
+	inline GLuint& GetShaderID() { return m_program; }
+
 	virtual ~Shader();
 protected:
 private:
-	const static int NUM_UNIFORMS = 4;
+	const static int NUM_UNIFORMS = 5;
 	void operator=(const Shader& shader) {}
 	Shader(const Shader& shader) {}
 

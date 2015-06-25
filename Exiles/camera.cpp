@@ -5,7 +5,7 @@
 Camera::Camera(const Matrix4f& projection) :
 m_projection(projection), mouseLocked(false)
 {
-	m_transform.SetPos(Vector3f());
+	m_transform.SetPos(Vector3f(0.0f,2.0f,0.0f));
 }
 
 Matrix4f Camera::GetViewProjection() const
@@ -20,7 +20,7 @@ Matrix4f Camera::GetViewProjection() const
 
 void Camera::UpdatePosition(float delta)
 {
-	float movAmt = 1.0f * delta;
+	float movAmt = 10.0f * delta;
 
 	if (Input::GetKey(Input::KEY_W))
 		Move(m_transform.GetRot().GetForward(), movAmt);
@@ -31,6 +31,11 @@ void Camera::UpdatePosition(float delta)
 		Move(m_transform.GetRot().GetLeft(), movAmt);
 	else if (Input::GetKey(Input::KEY_D))
 		Move(m_transform.GetRot().GetRight(), movAmt);
+
+	if (Input::GetKey(Input::KEY_SPACE))
+		Move(m_transform.GetRot().GetUp(), movAmt);
+	else if (Input::GetKey(Input::KEY_LCTRL))
+		Move(m_transform.GetRot().GetDown(), movAmt);
 }
 
 void Camera::UpdateRotation(float delta)

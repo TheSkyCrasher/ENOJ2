@@ -1,10 +1,5 @@
 #include "game.h"
 
-Game::Game()
-{
-
-}
-
 Game::~Game()
 {
 	for (unsigned int i = 0; i < m_objects.size(); ++i)
@@ -20,14 +15,7 @@ Game::~Game()
 
 void Game::Start()
 {
-	std::cout.setf(std::ios::fixed);
-
-	Window::Create(800, 600, "Exiles");
-
 	Init();
-
-	Shader m_defaultShader("Data/testShader");
-
 	while (Window::IsOpen())
 	{
 		Window::Clear(0.0f, 0.15f, 0.3f, 1.0f);
@@ -42,7 +30,7 @@ void Game::Start()
 
 		for (unsigned int i = 0; i < m_objects.size(); ++i)
 		{
-			m_objects[i]->Draw(&m_defaultShader, m_mainCamera);
+			m_objects[i]->RenderMesh(&m_defaultShader, m_mainCamera);
 		}
 
 		Window::Update();

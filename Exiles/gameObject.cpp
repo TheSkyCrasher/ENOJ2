@@ -14,6 +14,13 @@ GameObject::~GameObject()
 	if (m_texture) delete m_texture;
 }
 
+void GameObject::RenderMesh(Shader* shader, Camera* camera)
+{
+	shader->Bind();
+	shader->Update(m_transform, *camera);
+	m_mesh->Draw();
+}
+
 void GameObject::Draw(Shader* shader, Camera* camera)
 {
 	shader->Bind();

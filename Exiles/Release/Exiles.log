@@ -1,10 +1,10 @@
-﻿Build started 21.06.2015 12:40:06.
+﻿Build started 25.06.2015 19:34:22.
      1>Project "f:\Main\documents\visual studio 2013\Projects\Exiles\Exiles\Exiles.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /D _MBCS /D _CRT_SECURE_NO_WARNINGS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt window.cpp
-         window.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /D _MBCS /D _CRT_SECURE_NO_WARNINGS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt camera.cpp
+         camera.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"f:\Main\Documents\Visual Studio 2013\Projects\Exiles\Release\Exiles.exe" /NOLOGO glew32.lib glew32s.lib SDL2.lib SDL2main.lib SDL2test.lib opengl32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"f:\Main\Documents\Visual Studio 2013\Projects\Exiles\Release\Exiles.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"f:\Main\Documents\Visual Studio 2013\Projects\Exiles\Release\Exiles.lib" /MACHINE:X86 /SAFESEH Release\camera.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"f:\Main\documents\visual studio 2013\Projects\Exiles\Release\Exiles.exe" /NOLOGO glew32.lib glew32s.lib SDL2.lib SDL2main.lib SDL2test.lib opengl32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"f:\Main\documents\visual studio 2013\Projects\Exiles\Release\Exiles.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"f:\Main\documents\visual studio 2013\Projects\Exiles\Release\Exiles.lib" /MACHINE:X86 /SAFESEH Release\camera.obj
          Release\game.obj
          Release\gameObject.obj
          Release\math.obj
@@ -20,9 +20,9 @@
          Release\timer.obj
          Generating code
          Finished generating code
-         Exiles.vcxproj -> f:\Main\Documents\Visual Studio 2013\Projects\Exiles\Release\Exiles.exe
+         Exiles.vcxproj -> f:\Main\documents\visual studio 2013\Projects\Exiles\Release\Exiles.exe
      1>Done Building Project "f:\Main\documents\visual studio 2013\Projects\Exiles\Exiles\Exiles.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.07
+Time Elapsed 00:00:01.78
