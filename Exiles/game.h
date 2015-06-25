@@ -16,7 +16,7 @@
 class Game
 {
 public:
-	Game() : m_defaultShader("Data/testShader") {}
+	Game() : m_defaultShader("testShader") {}
 	virtual ~Game();
 
 	void Start();

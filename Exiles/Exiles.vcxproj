@@ -44,10 +44,8 @@
     <ClCompile Include="timer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\shadowMap.fp" />
-    <None Include="Data\shadowMap.vp" />
-    <None Include="Data\testShader.fp" />
-    <None Include="Data\testShader.vp" />
+    <None Include="Data\shaders\testShader.fp" />
+    <None Include="Data\shaders\testShader.vp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7C6C290B-EA0C-4E3F-8D0A-54CB0A4BE3C3}</ProjectGuid>

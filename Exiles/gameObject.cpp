@@ -14,17 +14,18 @@ GameObject::~GameObject()
 	if (m_texture) delete m_texture;
 }
 
-void GameObject::RenderMesh(Shader* shader, Camera* camera)
+void GameObject::RenderMesh(Shader* shader, const Matrix4f& mvp)
 {
-	shader->Bind();
-	shader->Update(m_transform, *camera);
+	shader->Update("MVP", mvp * m_transform.GetTransformation());
+	shader->Update("Normal", m_transform.GetTransformation());
 	m_mesh->Draw();
 }
 
 void GameObject::Draw(Shader* shader, Camera* camera)
 {
-	shader->Bind();
 	m_texture->Bind();
-	shader->Update(m_transform, *camera);
+	shader->Update("MVP", camera->GetViewProjection() * m_transform.GetTransformation());
+	shader->Update("Normal", m_transform.GetTransformation());
+	shader->Update("lightDirection", Vector3f(0.0f, -0.5f, 0.5f));
 	m_mesh->Draw();
 }

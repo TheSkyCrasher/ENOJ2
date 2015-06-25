@@ -9,10 +9,10 @@
 class GameObject
 {
 public:
-	GameObject(Mesh* mesh, Texture* texture = new Texture("Data/default.png"));
+	GameObject(Mesh* mesh, Texture* texture = new Texture("default.png"));
 	virtual ~GameObject();
 
-	void RenderMesh(Shader* shader, Camera* camera);
+	void RenderMesh(Shader* shader, const Matrix4f& mvp);
 	void Draw(Shader* shader, Camera* camera);
 
 	inline Transform& GetTransform() { return m_transform; }

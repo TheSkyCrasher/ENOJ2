@@ -15,6 +15,10 @@ Game::~Game()
 
 void Game::Start()
 {
+	m_defaultShader.AddUniform<Vector3f>("lightDirection");
+	m_defaultShader.AddUniform<Matrix4f>("MVP");
+	m_defaultShader.AddUniform<Matrix4f>("Normal");
+
 	Init();
 	while (Window::IsOpen())
 	{
@@ -28,9 +32,10 @@ void Game::Start()
 
 		Update();
 
+		m_defaultShader.Bind();
 		for (unsigned int i = 0; i < m_objects.size(); ++i)
 		{
-			m_objects[i]->RenderMesh(&m_defaultShader, m_mainCamera);
+			m_objects[i]->Draw(&m_defaultShader, m_mainCamera);
 		}
 
 		Window::Update();

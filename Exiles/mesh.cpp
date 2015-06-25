@@ -9,7 +9,7 @@
 
 Mesh::Mesh(const std::string& fileName)
 {
-    InitMesh(OBJModel(fileName).ToIndexedModel());
+    InitMesh(OBJModel("Data/models/" + fileName).ToIndexedModel());
 }
 
 void Mesh::InitMesh(const IndexedModel& model)

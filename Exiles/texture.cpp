@@ -5,10 +5,10 @@
 Texture::Texture(const std::string& fileName)
 {
 	int width, height, numComponents;
-    unsigned char* data = stbi_load((fileName).c_str(), &width, &height, &numComponents, 4);
+    unsigned char* data = stbi_load(("Data/images/" + fileName).c_str(), &width, &height, &numComponents, 4);
 
     if(data == NULL)
-		std::cerr << "Unable to load texture: " << fileName << std::endl;
+		std::cerr << "Unable to load texture: " << "Data/images/" + fileName << std::endl;
         
     glGenTextures(1, &m_texture);
     glBindTexture(GL_TEXTURE_2D, m_texture);

@@ -5,8 +5,8 @@
 Shader::Shader(const std::string& fileName)
 {
 	m_program = glCreateProgram();
-	m_shaders[0] = CreateShader(LoadShader(fileName + ".vp"), GL_VERTEX_SHADER);
-	m_shaders[1] = CreateShader(LoadShader(fileName + ".fp"), GL_FRAGMENT_SHADER);
+	m_shaders[0] = CreateShader(LoadShader("Data/shaders/" + fileName + ".vp"), GL_VERTEX_SHADER);
+	m_shaders[1] = CreateShader(LoadShader("Data/shaders/" + fileName + ".fp"), GL_FRAGMENT_SHADER);
 
 	for (unsigned int i = 0; i < NUM_SHADERS; i++)
 		glAttachShader(m_program, m_shaders[i]);
@@ -20,11 +20,30 @@ Shader::Shader(const std::string& fileName)
 
 	glValidateProgram(m_program);
 	CheckShaderError(m_program, GL_LINK_STATUS, true, "Invalid shader program");
+}
 
-	m_uniforms[0] = glGetUniformLocation(m_program, "MVP");
-	m_uniforms[1] = glGetUniformLocation(m_program, "Normal");
-	m_uniforms[2] = glGetUniformLocation(m_program, "lightDirection");
-	m_uniforms[3] = glGetUniformLocation(m_program, "lightMVP");
+template<>
+void Shader::AddUniform<int>(const std::string& name)
+{
+	m_uniformsi[name] = glGetUniformLocation(m_program, name.c_str());
+}
+
+template<>
+void Shader::AddUniform<float>(const std::string& name)
+{
+	m_uniformsf[name] = glGetUniformLocation(m_program, name.c_str());
+}
+
+template<>
+void Shader::AddUniform<Vector3f>(const std::string& name)
+{
+	m_uniformsVector3f[name] = glGetUniformLocation(m_program, name.c_str());
+}
+
+template<>
+void Shader::AddUniform<Matrix4f>(const std::string& name)
+{
+	m_uniformsMatrix4f[name] = glGetUniformLocation(m_program, name.c_str());
 }
 
 Shader::~Shader()
@@ -43,14 +62,24 @@ void Shader::Bind()
 	glUseProgram(m_program);
 }
 
-void Shader::Update(const Transform& transform, const Camera& camera)
+void Shader::Update(const std::string& name, int value)
 {
-	Matrix4f MVP = camera.GetViewProjection() * transform.GetTransformation();
-	Matrix4f Normal = transform.GetTransformation();
+	glUniform1i(m_uniformsi[name], value);
+}
 
-	glUniformMatrix4fv(m_uniforms[0], 1, GL_FALSE, &MVP[0][0]);
-	glUniformMatrix4fv(m_uniforms[1], 1, GL_FALSE, &Normal[0][0]);
-	glUniform3f(m_uniforms[2], 0.0f, -0.5f, 1.0f);
+void Shader::Update(const std::string& name, float value)
+{
+	glUniform1f(m_uniformsf[name], value);
+}
+
+void Shader::Update(const std::string& name, const Vector3f& value)
+{
+	glUniform3f(m_uniformsVector3f[name], value.GetX(), value.GetY(), value.GetZ());
+}
+
+void Shader::Update(const std::string& name, const Matrix4f& value)
+{
+	glUniformMatrix4fv(m_uniformsMatrix4f[name], 1, GL_FALSE, &value[0][0]);
 }
 
 std::string Shader::LoadShader(const std::string& fileName)

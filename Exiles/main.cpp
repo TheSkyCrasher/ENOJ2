@@ -15,9 +15,9 @@ private:
 
 void Exiles::Init()
 {
-	plane = new GameObject(new Mesh("Data/plane.obj"));
-	bunny = new GameObject(new Mesh("Data/bunny.obj"));
-	monkey = new GameObject(new Mesh("Data/monkey.obj"));
+	plane = new GameObject(new Mesh("plane.obj"));
+	bunny = new GameObject(new Mesh("bunny.obj"));
+	monkey = new GameObject(new Mesh("monkey.obj"));
 
 	monkey->GetTransform().SetPos(Vector3f(10.0f, 1.0f, 0.0f));
 	monkey->GetTransform().SetRot(Quaternion(Vector3f(0,1,0),-1.57f));

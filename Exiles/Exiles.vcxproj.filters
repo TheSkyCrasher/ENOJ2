@@ -118,16 +118,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\testShader.fp">
+    <None Include="Data\shaders\testShader.fp">
       <Filter>Engine core\Shaders</Filter>
     </None>
-    <None Include="Data\testShader.vp">
-      <Filter>Engine core\Shaders</Filter>
-    </None>
-    <None Include="Data\shadowMap.fp">
-      <Filter>Engine core\Shaders</Filter>
-    </None>
-    <None Include="Data\shadowMap.vp">
+    <None Include="Data\shaders\testShader.vp">
       <Filter>Engine core\Shaders</Filter>
     </None>
   </ItemGroup>

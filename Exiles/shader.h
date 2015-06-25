@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <GL/glew.h>
+#include <map>
 #include "transform.h"
 #include "camera.h"
 
@@ -10,7 +11,13 @@ public:
 	Shader(const std::string& fileName);
 
 	void Bind();
-	void Update(const Transform& transform, const Camera& camera);
+	void Update(const std::string& name, int value);
+	void Update(const std::string& name, float value);
+	void Update(const std::string& name, const Vector3f& value);
+	void Update(const std::string& name, const Matrix4f& value);
+
+	template<class T>
+	void AddUniform(const std::string& name);
 
 	inline GLuint& GetShaderID() { return m_program; }
 
@@ -36,4 +43,9 @@ private:
 	GLuint m_program;
 	GLuint m_shaders[NUM_SHADERS];
 	GLuint m_uniforms[NUM_UNIFORMS];
+
+	std::map<std::string, GLuint> m_uniformsi;
+	std::map<std::string, GLuint> m_uniformsf;
+	std::map<std::string, GLuint> m_uniformsVector3f;
+	std::map<std::string, GLuint> m_uniformsMatrix4f;
 };
