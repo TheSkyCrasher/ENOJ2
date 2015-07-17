@@ -7,8 +7,11 @@ class Texture
 {
 public:
 	Texture(const std::string& fileName);
+	Texture(const GLuint& texture) : m_texture(texture) {}
 
-	void Bind();
+	void Bind(unsigned int unit);
+
+	GLuint GetUint() { return m_texture; }
 
 	virtual ~Texture();
 protected:

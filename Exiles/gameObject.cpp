@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-GameObject::GameObject(Mesh* mesh, Texture* texture) :
-	m_mesh(mesh), m_texture(texture)
+GameObject::GameObject(Mesh* mesh, Texture* diffuse, Texture* normalMap, Texture* specularMap) :
+m_mesh(mesh), m_diffuse(diffuse), m_normalMap(normalMap), m_specularMap(specularMap)
 {
 	
 }
@@ -11,21 +11,23 @@ GameObject::GameObject(Mesh* mesh, Texture* texture) :
 GameObject::~GameObject()
 {
 	if (m_mesh) delete m_mesh;
-	if (m_texture) delete m_texture;
+	if (m_diffuse) delete m_diffuse;
+	if (m_normalMap) delete m_normalMap;
 }
 
-void GameObject::RenderMesh(Shader* shader, const Matrix4f& mvp)
+void GameObject::RenderMesh(Shader* shader)
 {
-	shader->Update("MVP", mvp * m_transform.GetTransformation());
-	shader->Update("Normal", m_transform.GetTransformation());
+	shader->Update("MP", m_transform.GetTransformation());
 	m_mesh->Draw();
 }
 
 void GameObject::Draw(Shader* shader, Camera* camera)
 {
-	m_texture->Bind();
+	m_diffuse->Bind(0);
+	m_normalMap->Bind(1);
+	m_specularMap->Bind(2);
+
 	shader->Update("MVP", camera->GetViewProjection() * m_transform.GetTransformation());
-	shader->Update("Normal", m_transform.GetTransformation());
-	shader->Update("lightDirection", Vector3f(0.0f, -0.5f, 0.5f));
+	shader->Update("MP", m_transform.GetTransformation());
 	m_mesh->Draw();
 }

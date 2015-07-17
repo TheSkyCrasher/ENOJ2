@@ -1,18 +1,26 @@
-#version 330
+#version 400
 
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec2 texCoord;
 layout (location = 2) in vec3 normal;
+layout (location = 3) in vec3 tangent;
 
-varying vec2 texCoord0;
-varying vec3 normal0;
+out vec2 fTexCoord;
+out vec3 fNormal;
+out vec3 fTangent;
+out vec3 fWorldPos;
+out vec4 fShadowCoord;
 
+uniform mat4 lightMV;
 uniform mat4 MVP;
-uniform mat4 Normal;
+uniform mat4 MP;
 
 void main()
 {
 	gl_Position = MVP * vec4(position, 1.0);
-	texCoord0 = texCoord;
-	normal0 = normalize((Normal * vec4(normal, 0.0)).xyz);
+	fTexCoord = texCoord;
+	fNormal = (MP * vec4(normal, 0.0)).xyz;
+	fTangent = (MP * vec4(tangent, 0.0)).xyz;
+	fWorldPos = (MP * vec4(position, 0.0)).xyz;
+	fShadowCoord = lightMV * MP * vec4(position, 1.0);
 }

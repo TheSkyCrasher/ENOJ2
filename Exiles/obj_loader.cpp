@@ -76,6 +76,45 @@ void IndexedModel::CalcNormals()
         normals[i] = glm::normalize(normals[i]);
 }
 
+void IndexedModel::ComputeTangentBasis()
+{
+	for (unsigned int i = 0; i < positions.size(); ++i)
+	{
+		tangents.push_back(glm::vec3());
+	}
+
+	for (unsigned int i = 0; i < indices.size(); i += 3){
+		int i0 = indices[i];
+		int i1 = indices[i + 1];
+		int i2 = indices[i + 2];
+
+		glm::vec3& v0 = positions[i0];
+		glm::vec3& v1 = positions[i1];
+		glm::vec3& v2 = positions[i2];
+
+		glm::vec2& uv0 = texCoords[i0];
+		glm::vec2& uv1 = texCoords[i1];
+		glm::vec2& uv2 = texCoords[i2];
+
+		glm::vec3 deltaPos1 = v1 - v0;
+		glm::vec3 deltaPos2 = v2 - v0;
+
+		glm::vec2 deltaUV1 = uv1 - uv0;
+		glm::vec2 deltaUV2 = uv2 - uv0;
+
+		float r = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
+		glm::vec3 tangent = (deltaPos1 * deltaUV2.y - deltaPos2 * deltaUV1.y)*r;
+
+		tangents[i0] += tangent;
+		tangents[i1] += tangent;
+		tangents[i2] += tangent;
+	}
+
+	for (unsigned int i = 0; i < indices.size(); ++i){
+		tangents[i] = glm::normalize(tangents[i]);
+	}
+}
+
 IndexedModel OBJModel::ToIndexedModel()
 {
     IndexedModel result;
@@ -155,6 +194,8 @@ IndexedModel OBJModel::ToIndexedModel()
             result.normals[i] = normalModel.normals[indexMap[i]];
     }
     
+	result.ComputeTangentBasis();
+
     return result;
 };
 

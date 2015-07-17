@@ -46,6 +46,9 @@
     <ClInclude Include="input.h">
       <Filter>Engine core\Stuff</Filter>
     </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>Engine core\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -90,6 +93,9 @@
     <ClCompile Include="input.cpp">
       <Filter>Engine core\Stuff</Filter>
     </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>Engine core\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine core">
@@ -122,6 +128,12 @@
       <Filter>Engine core\Shaders</Filter>
     </None>
     <None Include="Data\shaders\testShader.vp">
+      <Filter>Engine core\Shaders</Filter>
+    </None>
+    <None Include="Data\shaders\light.fp">
+      <Filter>Engine core\Shaders</Filter>
+    </None>
+    <None Include="Data\shaders\light.vp">
       <Filter>Engine core\Shaders</Filter>
     </None>
   </ItemGroup>

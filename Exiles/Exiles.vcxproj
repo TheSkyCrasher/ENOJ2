@@ -15,6 +15,7 @@
     <ClInclude Include="debugTimer.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
+    <ClInclude Include="light.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="window.h" />
     <ClInclude Include="input.h" />
@@ -31,6 +32,7 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameObject.cpp" />
+    <ClCompile Include="light.cpp" />
     <ClCompile Include="math.cpp" />
     <ClCompile Include="transform.cpp" />
     <ClCompile Include="window.cpp" />
@@ -44,6 +46,8 @@
     <ClCompile Include="timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Data\shaders\light.fp" />
+    <None Include="Data\shaders\light.vp" />
     <None Include="Data\shaders\testShader.fp" />
     <None Include="Data\shaders\testShader.vp" />
   </ItemGroup>

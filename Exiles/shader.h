@@ -4,6 +4,7 @@
 #include <map>
 #include "transform.h"
 #include "camera.h"
+#include "texture.h"
 
 class Shader
 {
@@ -48,4 +49,5 @@ private:
 	std::map<std::string, GLuint> m_uniformsf;
 	std::map<std::string, GLuint> m_uniformsVector3f;
 	std::map<std::string, GLuint> m_uniformsMatrix4f;
+	std::map<std::string, GLuint> m_uniformsTexture;
 };

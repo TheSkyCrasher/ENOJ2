@@ -505,6 +505,28 @@ public:
 		}
 	}
 
+	Matrix4(T n)
+	{
+		for (unsigned int i = 0; i < 4; ++i)
+		{
+			for (unsigned int j = 0; j < 4; ++j)
+			{
+				(*this)[i][j] = n;
+			}
+		}
+	}
+
+	Matrix4(T xx, T xy, T xz, T xw,
+		T yx, T yy, T yz, T yw,
+		T zx, T zy, T zz, T zw,
+		T wx, T wy, T wz, T ww)
+	{
+		(*this)[0][0] = xx; (*this)[0][0] = xy; (*this)[0][0] = xz; (*this)[0][0] = xw;
+		(*this)[0][0] = yx; (*this)[0][0] = yy; (*this)[0][0] = yz; (*this)[0][0] = yw;
+		(*this)[0][0] = zx; (*this)[0][0] = zy; (*this)[0][0] = zz; (*this)[0][0] = zw;
+		(*this)[0][0] = wx; (*this)[0][0] = wy; (*this)[0][0] = wz; (*this)[0][0] = ww;
+	}
+
 	inline Matrix4<T> InitRotationEuler(T rotateX, T rotateY, T rotateZ)
 	{
 		Matrix4<T> rx, ry, rz;
@@ -581,28 +603,23 @@ public:
 
 	inline Matrix4<T> LookAt(const Vector3<T>& eye, const Vector3<T>& center, const Vector3<T>& up)
 	{
-		Vector3<T> zaxis = center - eye;
-		zaxis.Normalized();
-		Vector3<T> xaxis = up.Cross(zaxis).Normalized();
-		Vector3<T> yaxis = zaxis.Cross(xaxis);
+		Vector3f f(Vector3f(center - eye).Normalized());
+		Vector3f s(Vector3f(f.Cross(up)).Normalized());
+		Vector3f u(Vector3f(s.Cross(f)).Normalized());
 
-		(*this)[0][0] = xaxis.GetX();
-		(*this)[0][1] = yaxis.GetX();
-		(*this)[0][2] = zaxis.GetZ();
-
-		(*this)[1][0] = xaxis.GetY();
-		(*this)[1][1] = yaxis.GetY();
-		(*this)[1][2] = zaxis.GetY();
-
-		(*this)[2][0] = xaxis.GetZ();
-		(*this)[2][1] = yaxis.GetZ();
-		(*this)[2][2] = zaxis.GetZ();
-
-		(*this)[3][0] = xaxis.GetX() * (-eye.GetX()) + xaxis.GetY() * (-eye.GetY()) + xaxis.GetZ()*(-eye.GetZ());
-		(*this)[3][1] = yaxis.GetX() * (-eye.GetX()) + yaxis.GetY() * (-eye.GetY()) + yaxis.GetZ()*(-eye.GetZ());
-		(*this)[3][2] = zaxis.GetX() * (-eye.GetX()) + zaxis.GetY() * (-eye.GetY()) + zaxis.GetZ()*(-eye.GetZ());
-
-		return *this;
+		(*this)[0][0] = s.GetX();
+		(*this)[1][0] = s.GetY();
+		(*this)[2][0] = s.GetZ();
+		(*this)[0][1] = u.GetX();
+		(*this)[1][1] = u.GetY();
+		(*this)[2][1] = u.GetZ();
+		(*this)[0][2] = -f.GetX();
+		(*this)[1][2] = -f.GetY();
+		(*this)[2][2] = -f.GetZ();
+		(*this)[3][0] = -s.Dot(eye);
+		(*this)[3][1] = -u.Dot(eye);
+		(*this)[3][2] = f.Dot(eye);
+		return (*this);
 	}
 protected:
 private:

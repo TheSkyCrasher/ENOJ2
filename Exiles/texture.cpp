@@ -18,8 +18,11 @@ Texture::Texture(const std::string& fileName)
         
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 8);
+
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
     stbi_image_free(data);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 Texture::~Texture()
@@ -27,8 +30,8 @@ Texture::~Texture()
 	glDeleteTextures(1, &m_texture);
 }
 
-void Texture::Bind()
+void Texture::Bind(unsigned int unit)
 {
-	glActiveTexture(GL_TEXTURE0);
+	glActiveTexture(GL_TEXTURE0 + unit);
 	glBindTexture(GL_TEXTURE_2D, m_texture);
 }

@@ -35,7 +35,8 @@ void Input::Update()
 	while (SDL_PollEvent(&e))
 	{
 		if (e.type == SDL_QUIT)
-			Window::SetCloseRequest();
+			Window::Close();
+			//Window::SetCloseRequest();
 
 		if (e.type == SDL_MOUSEMOTION)
 		{

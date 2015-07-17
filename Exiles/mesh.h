@@ -19,11 +19,13 @@ public:
 	glm::vec3* GetPos() { return &pos; }
 	glm::vec2* GetTexCoord() { return &texCoord; }
 	glm::vec3* GetNormal() { return &normal; }
+	glm::vec3* GetTangent() { return &tangent; }
 
 private:
 	glm::vec3 pos;
 	glm::vec2 texCoord;
 	glm::vec3 normal;
+	glm::vec3 tangent;
 };
 
 enum MeshBufferPositions
@@ -31,7 +33,9 @@ enum MeshBufferPositions
 	POSITION_VB,
 	TEXCOORD_VB,
 	NORMAL_VB,
-	INDEX_VB
+	TANGENT_VB,
+	INDEX_VB,
+	NUM_BUFFERS
 };
 
 class Mesh
@@ -45,7 +49,6 @@ public:
 	virtual ~Mesh();
 protected:
 private:
-	static const unsigned int NUM_BUFFERS = 4;
 	void operator=(const Mesh& mesh) {}
 	Mesh(const Mesh& mesh) {}
 

@@ -11,6 +11,7 @@
 #include "input.h"
 #include "gameObject.h"
 #include "timer.h"
+#include "light.h"
 #include <vector>
 
 class Game
@@ -29,6 +30,7 @@ public:
 private:
 	std::vector<GameObject*> m_objects;
 	Camera* m_mainCamera;
+	DirectionalLight m_light;
 	GLuint m_screenTexture;
 	Shader m_defaultShader;
 };

@@ -20,6 +20,8 @@ public:
 
 	static void SetMousePosition(int x, int y);
 
+	static void SetRenderToScreen();
+
 	static int GetWidth();
 	static int GetHeight();
 	static float GetAspect();

@@ -56,12 +56,16 @@ void Window::Close()
 	SDL_GL_DeleteContext(s_glContext);
 	SDL_DestroyWindow(s_window);
 	SDL_Quit();
+	std::cout << "CLOSED AND ";
 }
 
 void Window::Clear(float r, float g, float b, float a)
 {
 	glClearColor(r, g, b, a);
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+	glViewport(0, 0, GetWidth(), GetHeight());
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glCullFace(GL_BACK);
 }
 
 void Window::Update()
@@ -82,6 +86,11 @@ void Window::SetCloseRequest()
 void Window::SetMousePosition(int x, int y)
 {
 	SDL_WarpMouseInWindow(s_window, x, y);
+}
+
+void Window::SetRenderToScreen()
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 int Window::GetWidth() 

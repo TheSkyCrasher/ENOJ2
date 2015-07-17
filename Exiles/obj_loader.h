@@ -20,9 +20,11 @@ public:
     std::vector<glm::vec3> positions;
     std::vector<glm::vec2> texCoords;
     std::vector<glm::vec3> normals;
+	std::vector<glm::vec3> tangents;
     std::vector<unsigned int> indices;
     
     void CalcNormals();
+	void ComputeTangentBasis();
 };
 
 class OBJModel
@@ -32,6 +34,7 @@ public:
     std::vector<glm::vec3> vertices;
     std::vector<glm::vec2> uvs;
     std::vector<glm::vec3> normals;
+
     bool hasUVs;
     bool hasNormals;
     
