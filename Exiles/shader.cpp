@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 
-Shader::Shader(const std::string& fileName)
+Shader::Shader(const std::string& fileName, bool instance)
 {
 	m_program = glCreateProgram();
 	m_shaders[0] = CreateShader(LoadShader("Data/shaders/" + fileName + ".vp"), GL_VERTEX_SHADER);
@@ -16,6 +16,13 @@ Shader::Shader(const std::string& fileName)
 	glBindAttribLocation(m_program, 2, "normal");
 	glBindAttribLocation(m_program, 3, "tangent");
 	glBindAttribLocation(m_program, 4, "bitangent");
+
+	if (instance)
+	{
+		glBindAttribLocation(m_program, 5, "instanceMatrix");
+	}
+
+	glBindAttribLocation(m_program, 9, "random");
 
 	glLinkProgram(m_program);
 	CheckShaderError(m_program, GL_LINK_STATUS, true, "Error linking shader program");

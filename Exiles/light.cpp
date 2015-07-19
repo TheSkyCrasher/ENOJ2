@@ -22,9 +22,9 @@ DirectionalLight::DirectionalLight() : m_shader("light")
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	m_direction = Vector3f(0.0f, -0.5f, 0.4f);
-	Matrix4f projection = Matrix4f().InitPerspective(ToRadians(60.0f), 1.3f, 1.0f, 200.0f);
+	Matrix4f projection = Matrix4f().InitPerspective(ToRadians(60.0f), Window::GetAspect(), 0.1f, 1000.0f);
 	Matrix4f rotation = Matrix4f().InitRotationFromDirection(m_direction, Vector3f(0.0f, 1.0f, 0.0f));
-	Matrix4f position = Matrix4f().InitTranslation(Vector3f(0.0f, 5.5f, -7.69f) * -1.0f);
+	Matrix4f position = Matrix4f().InitTranslation(Vector3f(0.0f, 5.5f, -7.8f) * -1.0f);
 	m_MVP = projection * rotation * position;
 
 	m_shader.AddUniform<Matrix4f>("lightMV");

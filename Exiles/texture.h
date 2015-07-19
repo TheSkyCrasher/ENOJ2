@@ -6,7 +6,7 @@
 class Texture
 {
 public:
-	Texture(const std::string& fileName);
+	Texture(const std::string& fileName, bool transparent = false);
 	Texture(const GLuint& texture) : m_texture(texture) {}
 
 	void Bind(unsigned int unit);

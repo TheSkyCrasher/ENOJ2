@@ -9,7 +9,7 @@
 class Shader
 {
 public:
-	Shader(const std::string& fileName);
+	Shader(const std::string& fileName, bool instance = false);
 
 	void Bind();
 	void Update(const std::string& name, int value);

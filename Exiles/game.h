@@ -12,6 +12,7 @@
 #include "gameObject.h"
 #include "timer.h"
 #include "light.h"
+#include "grass.h"
 #include <vector>
 
 class Game
@@ -33,4 +34,5 @@ private:
 	DirectionalLight m_light;
 	GLuint m_screenTexture;
 	Shader m_defaultShader;
+	Grass m_grass;
 };

@@ -57,10 +57,42 @@ Mesh::Mesh(Vertex* vertices, unsigned int numVertices, unsigned int* indices, un
 		model.texCoords.push_back(*vertices[i].GetTexCoord());
 		model.normals.push_back(*vertices[i].GetNormal());
 		model.tangents.push_back(*vertices[i].GetTangent());
+		model.tangents.push_back(glm::vec3());
 	}
 	
 	for(unsigned int i = 0; i < numIndices; i++)
         model.indices.push_back(indices[i]);
+
+	for (unsigned int i = 0; i < model.indices.size(); i += 3){
+		int i0 = model.indices[i];
+		int i1 = model.indices[i + 1];
+		int i2 = model.indices[i + 2];
+
+		glm::vec3& v0 = model.positions[i0];
+		glm::vec3& v1 = model.positions[i1];
+		glm::vec3& v2 = model.positions[i2];
+
+		glm::vec2& uv0 = model.texCoords[i0];
+		glm::vec2& uv1 = model.texCoords[i1];
+		glm::vec2& uv2 = model.texCoords[i2];
+
+		glm::vec3 deltaPos1 = v1 - v0;
+		glm::vec3 deltaPos2 = v2 - v0;
+
+		glm::vec2 deltaUV1 = uv1 - uv0;
+		glm::vec2 deltaUV2 = uv2 - uv0;
+
+		float r = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
+		glm::vec3 tangent = (deltaPos1 * deltaUV2.y - deltaPos2 * deltaUV1.y)*r;
+
+		model.tangents[i0] += tangent;
+		model.tangents[i1] += tangent;
+		model.tangents[i2] += tangent;
+	}
+
+	for (unsigned int i = 0; i < model.indices.size(); ++i){
+		model.tangents[i] = glm::normalize(model.tangents[i]);
+	}
 
     InitMesh(model);
 }

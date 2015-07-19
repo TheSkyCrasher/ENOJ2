@@ -1,12 +1,8 @@
-#
-# plane.mtl
-#
-
-newmtl Material01
+# MTL written from F:\Main\Documents\Visual Studio 2013\Projects\Exiles\Release\Data\models\plane.obj
+newmtl Default
+Kd 0.48 0.48 0.48
+Ns 256
+d 1
 illum 2
-Kd 0.800000 0.800000 0.800000
-Ka 0.200000 0.200000 0.200000
-Ks 0.000000 0.000000 0.000000
-Ke 0.000000 0.000000 0.000000
-Ns 0.000000
-map_Kd default.png
+Ka 0 0 0
+Ks 0.04 0.04 0.04

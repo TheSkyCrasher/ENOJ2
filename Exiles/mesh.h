@@ -9,11 +9,11 @@
 struct Vertex
 {
 public:
-	Vertex(const glm::vec3& pos, const glm::vec2& texCoord, const glm::vec3& normal)
+	Vertex(float x, float y, float z, float u, float v, float nx, float ny, float nz)
 	{
-		this->pos = pos;
-		this->texCoord = texCoord;
-		this->normal = normal;
+		this->pos = glm::vec3(x,y,z);
+		this->texCoord = glm::vec2(u,v);
+		this->normal = glm::vec3(nx,ny,nz);
 	}
 
 	glm::vec3* GetPos() { return &pos; }
@@ -45,6 +45,8 @@ public:
 	Mesh(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices);
 
 	void Draw();
+
+	const GLuint& GetVAO() { return m_vertexArrayObject; }
 
 	virtual ~Mesh();
 protected:

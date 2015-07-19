@@ -11,8 +11,8 @@ class GameObject
 public:
 	GameObject(Mesh* mesh, 
 		Texture* diffuse = new Texture("default.png"), 
-		Texture* normalMap = new Texture("sand_NRM.jpg"), 
-		Texture* specularMap = new Texture("tile_SPEC.png"));
+		Texture* normalMap = new Texture("default_NRM.png"), 
+		Texture* specularMap = new Texture("default_SPEC.png"));
 
 	virtual ~GameObject();
 

@@ -1,4 +1,5 @@
 #include "game.h"
+#include <ctime>
 
 Game::~Game()
 {
@@ -15,6 +16,8 @@ Game::~Game()
 
 void Game::Start()
 {
+	srand(time(0));
+
 	m_defaultShader.AddUniform<Vector3f>("lightDirection");
 	m_defaultShader.AddUniform<Vector3f>("cameraPosition");
 	m_defaultShader.AddUniform<Matrix4f>("lightMV");
@@ -26,15 +29,18 @@ void Game::Start()
 	m_defaultShader.AddUniform<int>("specularTex");
 	m_defaultShader.AddUniform<int>("depthTex");
 
+	Matrix4f lightMVP = m_light.GetMVP();
+
 	m_defaultShader.Bind();
 	m_defaultShader.Update("lightDirection", m_light.GetDirection());
-	m_defaultShader.Update("lightMV", m_light.GetMVP());
+	m_defaultShader.Update("lightMV", lightMVP);
 	m_defaultShader.Update("diffuseTex",  0);
 	m_defaultShader.Update("normalTex",   1);
 	m_defaultShader.Update("specularTex", 2);
 	m_defaultShader.Update("depthTex",    3);
 
 	Init();
+	unsigned int renderObjects = m_objects.size();
 	while (Window::IsOpen())
 	{
 		Input::Update();
@@ -47,7 +53,7 @@ void Game::Start()
 		Update();
 
 		m_light.SetRender();
-		for (unsigned int i = 0; i < m_objects.size(); ++i)
+		for (unsigned int i = 0; i < renderObjects; ++i)
 		{
 			m_objects[i]->RenderMesh(m_light.GetShader());
 		}
@@ -59,10 +65,13 @@ void Game::Start()
 		m_defaultShader.Update("cameraPosition", m_mainCamera->GetPos());
 		m_light.BindTexture(3);
 
-		for (unsigned int i = 0; i < m_objects.size(); ++i)
+		for (unsigned int i = 0; i < renderObjects; ++i)
 		{
 			m_objects[i]->Draw(&m_defaultShader, m_mainCamera);
 		}
+
+		m_light.BindTexture(0);
+		m_grass.Draw(m_mainCamera, lightMVP);
 
 		Window::Update();
 	}

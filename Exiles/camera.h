@@ -14,7 +14,7 @@ public:
 	}
 
 	Matrix4f GetViewProjection() const;
-	const Vector3f GetPos() { return m_transform.GetPos(); }
+	const Vector3f& GetPos() { return m_transform.GetPos(); }
 private:
 	Transform m_transform;
 	Matrix4f m_projection;

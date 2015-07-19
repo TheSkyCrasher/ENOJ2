@@ -589,14 +589,25 @@ public:
 
 	inline Matrix4<T> InitOrthographic(T left, T right, T bottom, T top, T near, T far)
 	{
-		const T width = (right - left);
-		const T height = (top - bottom);
-		const T depth = (far - near);
+		(*this)[0][0] = 2.0f / (right - left);
+		(*this)[0][1] = 0.0f;
+		(*this)[0][2] = 0.0f;
+		(*this)[0][3] = 0.0f;
 
-		(*this)[0][0] = T(2) / width; (*this)[1][0] = T(0);        (*this)[2][0] = T(0);        (*this)[3][0] = -(right + left) / width;
-		(*this)[0][1] = T(0);       (*this)[1][1] = T(2) / height; (*this)[2][1] = T(0);        (*this)[3][1] = -(top + bottom) / height;
-		(*this)[0][2] = T(0);       (*this)[1][2] = T(0);        (*this)[2][2] = T(-2) / depth; (*this)[3][2] = -(far + near) / depth;
-		(*this)[0][3] = T(0);       (*this)[1][3] = T(0);        (*this)[2][3] = T(0);        (*this)[3][3] = T(1);
+		(*this)[1][0] = 0.0f;
+		(*this)[1][1] = 2.0f / (top - bottom);
+		(*this)[1][2] = 0.0f;
+		(*this)[1][3] = 0.0f;
+
+		(*this)[2][0] = 0.0f;
+		(*this)[2][1] = 0.0f;
+		(*this)[2][2] = -2.0f / (far - near);
+		(*this)[2][3] = 0.0f;
+
+		(*this)[3][0] = (right + left) / (left - right);
+		(*this)[3][1] = (top + bottom) / (bottom - top);
+		(*this)[3][2] = near / (near - far);
+		(*this)[3][3] = 1.0f;
 
 		return *this;
 	}
