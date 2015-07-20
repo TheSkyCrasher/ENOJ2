@@ -26,9 +26,6 @@ DirectionalLight::DirectionalLight() : m_shader("light")
 	Matrix4f rotation = Matrix4f().InitRotationFromDirection(m_direction, Vector3f(0.0f, 1.0f, 0.0f));
 	Matrix4f position = Matrix4f().InitTranslation(Vector3f(0.0f, 5.5f, -7.8f) * -1.0f);
 	m_MVP = projection * rotation * position;
-
-	m_shader.AddUniform<Matrix4f>("lightMV");
-	m_shader.AddUniform<Matrix4f>("MP");
 }
 
 DirectionalLight::~DirectionalLight()
@@ -48,7 +45,7 @@ void DirectionalLight::SetRender()
 
 	m_shader.Bind();
 
-	m_shader.Update("lightMV", m_MVP);
+	m_shader.SetUniform("lightMV", m_MVP);
 }
 
 void DirectionalLight::BindTexture(unsigned int unit)

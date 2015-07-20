@@ -1,8 +1,9 @@
 #version 400 
+
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec2 texCoord;
-layout (location = 5) in mat4 instanceMatrix;
-layout (location = 9) in float random;
+layout (location = 2) in mat4 instanceMatrix;
+layout (location = 6) in float random;
 
 out vec2 fTexCoord;
 out vec4 fShadowCoord;

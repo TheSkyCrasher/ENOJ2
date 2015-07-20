@@ -5,7 +5,7 @@
 #include "texture.h"
 #include "math.h"
 #include "shader.h"
-#include "mesh.h"
+#include "camera.h"
 
 class Grass
 {
@@ -21,9 +21,8 @@ private:
 	static const int GRASS_TYPES = 1;
 	Texture* m_grassTypes[GRASS_TYPES];
 
-	Mesh* m_quadMesh;
-
 	GLuint m_VAO;
+	GLuint m_VBO[5];
 	Shader m_shader;
 	std::vector<Matrix4f> m_grassMatrices;
 	std::vector<float> m_grassRnd;
