@@ -62,41 +62,44 @@ Mesh::Mesh(const std::string& fileName)
 		}
 
 		std::cout << scene->mMaterials[0]->GetTextureCount(aiTextureType_DIFFUSE) << "\n";
-
-		meshObejct->m_numIndices = meshObejct->indices.size();
-
-		glGenVertexArrays(1, &meshObejct->m_vao);
-		glBindVertexArray(meshObejct->m_vao);
-
-		glGenBuffers(5, meshObejct->m_vbo);
-
-		glBindBuffer(GL_ARRAY_BUFFER, meshObejct->m_vbo[0]);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(meshObejct->positions[0]) * meshObejct->positions.size(), &meshObejct->positions[0], GL_STATIC_DRAW);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-		glBindBuffer(GL_ARRAY_BUFFER, meshObejct->m_vbo[1]);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(meshObejct->texCoords[0]) * meshObejct->texCoords.size(), &meshObejct->texCoords[0], GL_STATIC_DRAW);
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
-
-		glBindBuffer(GL_ARRAY_BUFFER, meshObejct->m_vbo[2]);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(meshObejct->normals[0]) * meshObejct->normals.size(), &meshObejct->normals[0], GL_STATIC_DRAW);
-		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-		glBindBuffer(GL_ARRAY_BUFFER, meshObejct->m_vbo[3]);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(meshObejct->tangents[0]) * meshObejct->tangents.size(), &meshObejct->tangents[0], GL_STATIC_DRAW);
-		glEnableVertexAttribArray(3);
-		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshObejct->m_vbo[4]);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(meshObejct->indices[0]) * meshObejct->indices.size(), &meshObejct->indices[0], GL_STATIC_DRAW);
-
-		glBindVertexArray(0);
-
 		m_meshObjects.push_back(meshObejct);
+		Init();
 	}
+}
+
+void Mesh::Init()
+{
+	m_meshObjects.back()->m_numIndices = m_meshObjects.back()->indices.size();
+
+	glGenVertexArrays(1, &m_meshObjects.back()->m_vao);
+	glBindVertexArray(m_meshObjects.back()->m_vao);
+
+	glGenBuffers(5, m_meshObjects.back()->m_vbo);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_meshObjects.back()->m_vbo[0]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(m_meshObjects.back()->positions[0]) * m_meshObjects.back()->positions.size(), &m_meshObjects.back()->positions[0], GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_meshObjects.back()->m_vbo[1]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(m_meshObjects.back()->texCoords[0]) * m_meshObjects.back()->texCoords.size(), &m_meshObjects.back()->texCoords[0], GL_STATIC_DRAW);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_meshObjects.back()->m_vbo[2]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(m_meshObjects.back()->normals[0]) * m_meshObjects.back()->normals.size(), &m_meshObjects.back()->normals[0], GL_STATIC_DRAW);
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_meshObjects.back()->m_vbo[3]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(m_meshObjects.back()->tangents[0]) * m_meshObjects.back()->tangents.size(), &m_meshObjects.back()->tangents[0], GL_STATIC_DRAW);
+	glEnableVertexAttribArray(3);
+	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_meshObjects.back()->m_vbo[4]);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(m_meshObjects.back()->indices[0]) * m_meshObjects.back()->indices.size(), &m_meshObjects.back()->indices[0], GL_STATIC_DRAW);
+
+	glBindVertexArray(0);
 }
 
 Mesh::~Mesh()

@@ -19,6 +19,7 @@
     <ClInclude Include="light.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="perlinNoise.h" />
+    <ClInclude Include="skybox.h" />
     <ClInclude Include="window.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="mesh.h" />
@@ -37,6 +38,7 @@
     <ClCompile Include="light.cpp" />
     <ClCompile Include="math.cpp" />
     <ClCompile Include="perlinNoise.cpp" />
+    <ClCompile Include="skybox.cpp" />
     <ClCompile Include="transform.cpp" />
     <ClCompile Include="window.cpp" />
     <ClCompile Include="input.cpp" />
@@ -52,8 +54,10 @@
     <None Include="Data\shaders\grass.vp" />
     <None Include="Data\shaders\light.fp" />
     <None Include="Data\shaders\light.vp" />
-    <None Include="Data\shaders\testShader.fp" />
-    <None Include="Data\shaders\testShader.vp" />
+    <None Include="Data\shaders\model.fp" />
+    <None Include="Data\shaders\model.vp" />
+    <None Include="Data\shaders\skybox.fp" />
+    <None Include="Data\shaders\skybox.vp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7C6C290B-EA0C-4E3F-8D0A-54CB0A4BE3C3}</ProjectGuid>

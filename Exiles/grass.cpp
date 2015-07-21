@@ -6,10 +6,7 @@
 
 Grass::Grass() : m_shader("grass")
 {
-	for (unsigned int i = 0; i < GRASS_TYPES; ++i)
-	{
-		m_grassTypes[i] = new Texture("grass" + std::to_string(i) + ".png", true);
-	}
+	m_grassTex = new Texture("grass0.png", true);
 
 	PerlinNoise pn(rand() % 100000);
 
@@ -84,14 +81,13 @@ Grass::Grass() : m_shader("grass")
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)* 6, &indices[0], GL_STATIC_DRAW);
 
 	glBindVertexArray(0);
+	m_shader.Bind();
+	m_shader.SetUniform("depthTex", 0);
+	m_shader.SetUniform("diffuseTex", 1);
+	glUseProgram(0);
 }
 
 static float time = 0.0f;
-
-void Grass::BindShader()
-{
-	m_shader.Bind();
-}
 
 void Grass::Draw(Camera* camera, const Matrix4f& lightMVP)
 {
@@ -101,10 +97,7 @@ void Grass::Draw(Camera* camera, const Matrix4f& lightMVP)
 	m_shader.SetUniform("time", time);
 	time+= Timer::deltaTime();
 
-	for (unsigned int i = 0; i < GRASS_TYPES; ++i)
-	{
-		m_grassTypes[i]->Bind(i+1);
-	}
+	m_grassTex->Bind(1);
 
 	glDisable(GL_CULL_FACE);
 	glBindVertexArray(m_VAO);
@@ -118,10 +111,7 @@ Grass::~Grass()
 	glDeleteBuffers(5, m_VBO);
 	glDeleteVertexArrays(1, &m_VAO);
 
-	for (unsigned int i = 0; i < GRASS_TYPES; ++i)
-	{
-		if (m_grassTypes[i]) delete m_grassTypes[i];
-	}
+	if (m_grassTex) delete m_grassTex;
 
 	std::cout << "GRASS DELETED\n";
 }

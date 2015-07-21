@@ -12,14 +12,12 @@ class Grass
 public:
 	Grass();
 
-	void BindShader();
-
 	void Draw(Camera* camera, const Matrix4f& lightMVP);
 
 	virtual ~Grass();
 private:
 	static const int GRASS_TYPES = 1;
-	Texture* m_grassTypes[GRASS_TYPES];
+	Texture* m_grassTex;
 
 	GLuint m_VAO;
 	GLuint m_VBO[5];

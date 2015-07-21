@@ -52,6 +52,8 @@ private:
 	Mesh(Mesh& mesh) {}
 	void operator=(Mesh& mesh) {}
 
+	void Init();
+
 	std::string m_fileName;
 	std::vector<MeshObject*> m_meshObjects;
 	std::vector<Texture*> m_textures;

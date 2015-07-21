@@ -246,7 +246,7 @@ void ShaderData::AddUniforms(const std::string& shaderText)
 				m_uniformsVector3f[uniformName] = glGetUniformLocation(m_program, uniformName.c_str());
 			else if (uniformType == "mat4")
 				m_uniformsMatrix4f[uniformName] = glGetUniformLocation(m_program, uniformName.c_str());
-			else if (uniformType == "sampler2D")
+			else if (uniformType == "sampler2D" || uniformType == "sampler2DShadow")
 				m_uniformsi[uniformName] = glGetUniformLocation(m_program, uniformName.c_str());
 		}
 		uniformLocation = shaderText.find(UNIFORM_KEY, uniformLocation + UNIFORM_KEY.length());

@@ -52,6 +52,9 @@
     <ClInclude Include="perlinNoise.h">
       <Filter>Engine core\Stuff</Filter>
     </ClInclude>
+    <ClInclude Include="skybox.h">
+      <Filter>Engine core\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -102,6 +105,9 @@
     <ClCompile Include="perlinNoise.cpp">
       <Filter>Engine core\Stuff</Filter>
     </ClCompile>
+    <ClCompile Include="skybox.cpp">
+      <Filter>Engine core\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine core">
@@ -127,12 +133,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\shaders\testShader.fp">
-      <Filter>Engine core\Shaders</Filter>
-    </None>
-    <None Include="Data\shaders\testShader.vp">
-      <Filter>Engine core\Shaders</Filter>
-    </None>
     <None Include="Data\shaders\light.fp">
       <Filter>Engine core\Shaders</Filter>
     </None>
@@ -143,6 +143,18 @@
       <Filter>Engine core\Shaders</Filter>
     </None>
     <None Include="Data\shaders\grass.vp">
+      <Filter>Engine core\Shaders</Filter>
+    </None>
+    <None Include="Data\shaders\model.fp">
+      <Filter>Engine core\Shaders</Filter>
+    </None>
+    <None Include="Data\shaders\model.vp">
+      <Filter>Engine core\Shaders</Filter>
+    </None>
+    <None Include="Data\shaders\skybox.fp">
+      <Filter>Engine core\Shaders</Filter>
+    </None>
+    <None Include="Data\shaders\skybox.vp">
       <Filter>Engine core\Shaders</Filter>
     </None>
   </ItemGroup>

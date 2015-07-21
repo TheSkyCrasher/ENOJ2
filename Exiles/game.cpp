@@ -23,10 +23,10 @@ void Game::Start()
 	m_defaultShader.Bind();
 	m_defaultShader.SetUniform("lightDirection", m_light.GetDirection());
 	m_defaultShader.SetUniform("lightMVP", lightMVP);
-	m_defaultShader.SetUniform("diffuseTex", 0);
-	m_defaultShader.SetUniform("normalTex", 1);
-	m_defaultShader.SetUniform("specularTex", 2);
-	m_defaultShader.SetUniform("depthTex", 3);
+	m_defaultShader.SetUniform("depthTex", 0);
+	m_defaultShader.SetUniform("diffuseTex", 1);
+	m_defaultShader.SetUniform("normalTex", 2);
+	m_defaultShader.SetUniform("specularTex", 3);
 
 	Init();
 	unsigned int renderObjects = m_objects.size();
@@ -50,16 +50,17 @@ void Game::Start()
 		Window::SetRenderToScreen();
 		Window::Clear(0.0f, 0.3f, 0.6f, 1.0f);
 
+		m_skybox.Draw(m_mainCamera);
+
 		m_defaultShader.Bind();
 		m_defaultShader.SetUniform("cameraPosition", m_mainCamera->GetPos());
-		m_light.BindTexture(3);
+		m_light.BindTexture(0);
 
 		for (unsigned int i = 0; i < renderObjects; ++i)
 		{
 			m_objects[i]->Draw(&m_defaultShader, m_mainCamera);
 		}
 
-		m_light.BindTexture(0);
 		m_grass.Draw(m_mainCamera, lightMVP);
 
 		Window::Update();

@@ -23,9 +23,9 @@ void GameObject::RenderMesh(Shader* shader)
 
 void GameObject::Draw(Shader* shader, Camera* camera)
 {
-	m_diffuse->Bind(0);
-	m_normalMap->Bind(1);
-	m_specularMap->Bind(2);
+	m_diffuse->Bind(1);
+	m_normalMap->Bind(2);
+	m_specularMap->Bind(3);
 
 	shader->SetUniform("MVP", camera->GetViewProjection() * m_transform.GetTransformation());
 	shader->SetUniform("MP", m_transform.GetTransformation());

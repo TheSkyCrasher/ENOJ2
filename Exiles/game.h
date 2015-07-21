@@ -12,13 +12,14 @@
 #include "gameObject.h"
 #include "timer.h"
 #include "light.h"
+#include "skybox.h"
 #include "grass.h"
 #include <vector>
 
 class Game
 {
 public:
-	Game() : m_defaultShader("testShader") {}
+	Game() : m_defaultShader("model") {}
 	virtual ~Game();
 
 	void Start();
@@ -34,5 +35,6 @@ private:
 	DirectionalLight m_light;
 	GLuint m_screenTexture;
 	Shader m_defaultShader;
+	SkyBox m_skybox;
 	Grass m_grass;
 };
