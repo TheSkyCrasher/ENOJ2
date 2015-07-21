@@ -25,17 +25,20 @@ public:
 class MeshObject
 {
 public:
+	MeshObject(unsigned int indexSize);
 	virtual ~MeshObject();
 
-	std::vector<Vector3f> positions;
-	std::vector<Vector2f> texCoords;
-	std::vector<Vector3f> normals;
-	std::vector<Vector3f> tangents;
-	std::vector<unsigned int> indices;
+	unsigned int* GetVBO() { return &m_vbo; }
+	unsigned int* GetIBO() { return &m_ibo; }
+	inline int GetSize() { return m_size; }
+protected:
+private:
+	MeshObject(MeshObject& other) {}
+	void operator=(MeshObject& other) {}
 
-	unsigned int m_vao;
-	unsigned int m_vbo[5];
-	unsigned int m_numIndices;
+	unsigned int m_vbo;
+	unsigned int m_ibo;
+	unsigned int m_size;
 	unsigned int m_materialIndex;
 };
 
@@ -43,6 +46,7 @@ class Mesh
 {
 public:
 	Mesh(const std::string& fileName);
+	Mesh(Vertex* vertices, int vertSize, int* indices, int indexSize, bool calcNormals);
 
 	virtual ~Mesh();
 
@@ -52,9 +56,10 @@ private:
 	Mesh(Mesh& mesh) {}
 	void operator=(Mesh& mesh) {}
 
-	void Init();
+	void InitMesh(Vertex* vertices, int vertSize, int* indices, int indexSize, bool calcNormals = true);
 
 	std::string m_fileName;
 	std::vector<MeshObject*> m_meshObjects;
 	std::vector<Texture*> m_textures;
+	unsigned int m_size;
 };

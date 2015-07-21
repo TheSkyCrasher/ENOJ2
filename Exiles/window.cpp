@@ -49,6 +49,11 @@ void Window::Create(int width, int height, const std::string& title)
 	s_isOpen = true;
 	s_width = width;
 	s_height = height;
+
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
+	glEnableVertexAttribArray(3);
 }
 
 void Window::Close()
