@@ -85,7 +85,7 @@ static std::string LoadShader(const std::string& fileName)
 	return output;
 };
 
-ShaderData::ShaderData(const std::string& fileName)
+ShaderData::ShaderData(const std::string& fileName, bool enableGeometric)
 {
 	m_program = glCreateProgram();
 
@@ -96,16 +96,26 @@ ShaderData::ShaderData(const std::string& fileName)
 
 	std::string vertexShaderText = LoadShader(fileName + ".vp");
 	std::string fragmentShaderText = LoadShader(fileName + ".fp");
+	std::string geometricShaderText;
 
 	AddVertexShader(vertexShaderText);
 	AddFragmentShader(fragmentShaderText);
 
 	AddAllAttributes(vertexShaderText);
 
+	if (enableGeometric)
+	{
+		geometricShaderText = LoadShader(fileName + ".gp");
+		AddGeometryShader(geometricShaderText);
+	}
+
 	CompileShader();
 
 	AddUniforms(vertexShaderText);
 	AddUniforms(fragmentShaderText);
+
+	if (enableGeometric)
+		AddUniforms(geometricShaderText);
 }
 
 ShaderData::~ShaderData()
@@ -252,7 +262,7 @@ void ShaderData::CompileShader()
 	CheckShaderError(m_program, GL_VALIDATE_STATUS, true, "Invalid shader program");
 }
 
-Shader::Shader(const std::string& fileName, bool instance)
+Shader::Shader(const std::string& fileName, bool enableGeometric)
 {
 	m_fileName = fileName;
 
@@ -264,7 +274,7 @@ Shader::Shader(const std::string& fileName, bool instance)
 	}
 	else
 	{
-		m_shaderData = new ShaderData(fileName);
+		m_shaderData = new ShaderData(fileName, enableGeometric);
 		s_resourceMap.insert(std::pair<std::string, ShaderData*>(fileName, m_shaderData));
 	}
 }

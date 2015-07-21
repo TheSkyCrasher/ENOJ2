@@ -3,7 +3,6 @@
 #include "math.h"
 #include "texture.h"
 #include <GL/glew.h>
-#include <glm\glm.hpp>
 #include <string>
 #include <vector>
 
@@ -26,20 +25,17 @@ public:
 class MeshObject
 {
 public:
-	MeshObject(unsigned int indexSize, unsigned int materialIndex);
 	virtual ~MeshObject();
 
-	inline unsigned int GetVBO() { return m_vbo; }
-	inline unsigned int GetIBO() { return m_ibo; }
-	inline int GetSize() { return m_size; }
-protected:
-private:
-	MeshObject(MeshObject& other) {}
-	void operator=(MeshObject& other) {}
+	std::vector<Vector3f> positions;
+	std::vector<Vector2f> texCoords;
+	std::vector<Vector3f> normals;
+	std::vector<Vector3f> tangents;
+	std::vector<unsigned int> indices;
 
-	unsigned int m_vbo;
-	unsigned int m_ibo;
-	unsigned int m_size;
+	unsigned int m_vao;
+	unsigned int m_vbo[5];
+	unsigned int m_numIndices;
 	unsigned int m_materialIndex;
 };
 
@@ -47,7 +43,7 @@ class Mesh
 {
 public:
 	Mesh(const std::string& fileName);
-	Mesh(Vertex* vertices, unsigned int vertSize, unsigned int* indices, unsigned int indexSize);
+
 	virtual ~Mesh();
 
 	void Draw() const;
@@ -55,11 +51,6 @@ protected:
 private:
 	Mesh(Mesh& mesh) {}
 	void operator=(Mesh& mesh) {}
-
-	void InitMesh(Vertex* vertices, unsigned int vertSize, unsigned int* indices, unsigned int indexSize, unsigned int materialIndex = 0);
-
-	void CalcNormals(Vertex* vertices, unsigned int vertSize, unsigned int* indices, unsigned int indexSize);
-	void CalcTangents(Vertex* vertices, unsigned int vertSize, unsigned int* indices, unsigned int indexSize);
 
 	std::string m_fileName;
 	std::vector<MeshObject*> m_meshObjects;

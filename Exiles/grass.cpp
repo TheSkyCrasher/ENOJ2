@@ -4,7 +4,7 @@
 #include "window.h"
 #include <iostream>
 
-Grass::Grass() : m_shader("grass", true)
+Grass::Grass() : m_shader("grass")
 {
 	for (unsigned int i = 0; i < GRASS_TYPES; ++i)
 	{
@@ -23,10 +23,10 @@ Grass::Grass() : m_shader("grass", true)
 	}
 
 	Vector3f positions[] = {
-		Vector3f(-0.25f, 0.5f, 0.0f),
-		Vector3f(-0.25f, 1.0f, 0.0f),
-		Vector3f(0.25f, 1.0f, 0.0f),
-		Vector3f(0.25f, 0.5f, 0.0f),
+		Vector3f(-0.25f, 0.4f, 0.0f),
+		Vector3f(-0.25f, 0.9f, 0.0f),
+		Vector3f(0.25f, 0.9f, 0.0f),
+		Vector3f(0.25f, 0.4f, 0.0f),
 	};
 
 	Vector2f texcoords[] = {

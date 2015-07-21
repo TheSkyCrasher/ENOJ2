@@ -8,7 +8,7 @@
 class ShaderData : public ReferenceCounter
 {
 public:
-	ShaderData(const std::string& fileName);
+	ShaderData(const std::string& fileName, bool enableGeometric);
 	virtual ~ShaderData();
 
 	inline int GetProgram() { return m_program; }
@@ -35,7 +35,7 @@ private:
 class Shader
 {
 public:
-	Shader(const std::string& fileName, bool instance = false);
+	Shader(const std::string& fileName, bool enableGeometric = false);
 
 	void Bind();
 	void SetUniform(const std::string& name, int value);
