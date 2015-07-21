@@ -21,7 +21,7 @@ float CalcShadowFactor(vec4 LightSpacePos)
     UVCoords.y = 0.5 * ProjCoords.y + 0.5;
     float z = 0.5 * ProjCoords.z + 0.5;
     float Depth = texture(depthTex, UVCoords).x;
-    if (Depth < (z + 0.00001 * tan(acos(clamp(dot(fNormal,-lightDirection),0.0,1.0)))))
+    if (Depth < (z + 0.00001 * tan(acos(clamp(dot(fNormal,-lightDirection),0.0,1.0)))) &&  UVCoords.x >= 0.0 &&  UVCoords.x <= 1.0 &&  UVCoords.y >= 0.0 &&  UVCoords.y <= 1.0)
         return 0.2;
     else
         return 1.0;

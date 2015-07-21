@@ -17,7 +17,7 @@ GameObject::~GameObject()
 
 void GameObject::RenderMesh(Shader* shader)
 {
-	shader->Update("MP", m_transform.GetTransformation());
+	shader->SetUniform("MP", m_transform.GetTransformation());
 	m_mesh->Draw();
 }
 
@@ -27,7 +27,7 @@ void GameObject::Draw(Shader* shader, Camera* camera)
 	m_normalMap->Bind(1);
 	m_specularMap->Bind(2);
 
-	shader->Update("MVP", camera->GetViewProjection() * m_transform.GetTransformation());
-	shader->Update("MP", m_transform.GetTransformation());
+	shader->SetUniform("MVP", camera->GetViewProjection() * m_transform.GetTransformation());
+	shader->SetUniform("MP", m_transform.GetTransformation());
 	m_mesh->Draw();
 }

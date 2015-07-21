@@ -16,28 +16,17 @@ Game::~Game()
 
 void Game::Start()
 {
-	srand(time(0));
-
-	m_defaultShader.AddUniform<Vector3f>("lightDirection");
-	m_defaultShader.AddUniform<Vector3f>("cameraPosition");
-	m_defaultShader.AddUniform<Matrix4f>("lightMV");
-	m_defaultShader.AddUniform<Matrix4f>("MVP");
-	m_defaultShader.AddUniform<Matrix4f>("MP");
-
-	m_defaultShader.AddUniform<int>("diffuseTex");
-	m_defaultShader.AddUniform<int>("normalTex");
-	m_defaultShader.AddUniform<int>("specularTex");
-	m_defaultShader.AddUniform<int>("depthTex");
+	srand((unsigned int) time(0));
 
 	Matrix4f lightMVP = m_light.GetMVP();
 
 	m_defaultShader.Bind();
-	m_defaultShader.Update("lightDirection", m_light.GetDirection());
-	m_defaultShader.Update("lightMV", lightMVP);
-	m_defaultShader.Update("diffuseTex",  0);
-	m_defaultShader.Update("normalTex",   1);
-	m_defaultShader.Update("specularTex", 2);
-	m_defaultShader.Update("depthTex",    3);
+	m_defaultShader.SetUniform("lightDirection", m_light.GetDirection());
+	m_defaultShader.SetUniform("lightMVP", lightMVP);
+	m_defaultShader.SetUniform("diffuseTex", 0);
+	m_defaultShader.SetUniform("normalTex", 1);
+	m_defaultShader.SetUniform("specularTex", 2);
+	m_defaultShader.SetUniform("depthTex", 3);
 
 	Init();
 	unsigned int renderObjects = m_objects.size();
@@ -62,7 +51,7 @@ void Game::Start()
 		Window::Clear(0.0f, 0.3f, 0.6f, 1.0f);
 
 		m_defaultShader.Bind();
-		m_defaultShader.Update("cameraPosition", m_mainCamera->GetPos());
+		m_defaultShader.SetUniform("cameraPosition", m_mainCamera->GetPos());
 		m_light.BindTexture(3);
 
 		for (unsigned int i = 0; i < renderObjects; ++i)
