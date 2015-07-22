@@ -23,7 +23,7 @@ MeshObject::~MeshObject()
 
 Mesh::Mesh(Vertex* vertices, int vertSize, int* indices, int indexSize, bool calcNormals)
 {
-	InitMesh(vertices, vertSize, indices, indexSize, calcNormals);
+	InitMesh(vertices, vertSize, indices, indexSize, calcNormals, 0);
 }
 
 Mesh::Mesh(const std::string& fileName)
@@ -74,15 +74,36 @@ Mesh::Mesh(const std::string& fileName)
 			indices.push_back(face.mIndices[2]);
 		}
 
-		InitMesh(&vertices[0], vertices.size(), (int*)&indices[0], indices.size(), false);
+		InitMesh(&vertices[0], vertices.size(), (int*)&indices[0], indices.size(), false, model->mMaterialIndex);
+	}
+
+	for (unsigned int i = 0; i < scene->mNumMaterials; ++i) {
+		const aiMaterial* material = scene->mMaterials[i];
+
+		aiString path;
+		if (material->GetTextureCount(aiTextureType_DIFFUSE) > 0) {
+			if (material->GetTexture(aiTextureType_DIFFUSE, 0, &path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS) {
+				std::string textureName(path.data);
+				std::size_t found = textureName.find_last_of("/\\");
+				textureName = textureName.substr(found + 1);
+
+				m_textures.push_back(new Texture(textureName));
+			}
+		}
+		else {
+			m_textures.push_back(new Texture("white.png"));
+		}
+
+		std::cout << material->GetTextureCount(aiTextureType_NORMALS) << "\n";
 	}
 
 	m_size = m_meshObjects.size();
 }
 
-void Mesh::InitMesh(Vertex* vertices, int vertSize, int* indices, int indexSize, bool calcNormals)
+void Mesh::InitMesh(Vertex* vertices, int vertSize, int* indices, int indexSize, bool calcNormals, unsigned int mMaterialIndex)
 {
 	MeshObject* m_meshObject = new MeshObject(indexSize);
+	m_meshObject->m_materialIndex = mMaterialIndex;
 
 	glBindBuffer(GL_ARRAY_BUFFER, *m_meshObject->GetVBO());
 	glBufferData(GL_ARRAY_BUFFER, vertSize * sizeof(Vertex), vertices, GL_STATIC_DRAW);
@@ -99,9 +120,14 @@ Mesh::~Mesh()
 	{
 		if (m_meshObjects[i]) delete m_meshObjects[i];
 	}
+
+	for (unsigned int i = 0; i < m_textures.size(); ++i)
+	{
+		if (m_textures[i]) delete m_textures[i];
+	}
 }
 
-void Mesh::Draw() const
+void Mesh::Draw(bool drawTextures) const
 {
 	for (unsigned int i = 0; i < m_size; ++i)
 	{
@@ -110,6 +136,15 @@ void Mesh::Draw() const
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)sizeof(Vector3f));
 		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(sizeof(Vector3f)+sizeof(Vector2f)));
 		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(sizeof(Vector3f)*2+sizeof(Vector2f)));
+
+		if (drawTextures)
+		{
+			const unsigned int materialIndex = m_meshObjects[i]->m_materialIndex;
+
+			if (materialIndex < m_textures.size() && m_textures[materialIndex]) {
+				m_textures[materialIndex]->Bind(1);
+			}
+		}
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *m_meshObjects[i]->GetIBO());
 		glDrawElements(GL_TRIANGLES, m_meshObjects[i]->GetSize(), GL_UNSIGNED_INT, 0);

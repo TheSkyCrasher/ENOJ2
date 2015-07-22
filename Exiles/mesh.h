@@ -31,6 +31,8 @@ public:
 	unsigned int* GetVBO() { return &m_vbo; }
 	unsigned int* GetIBO() { return &m_ibo; }
 	inline int GetSize() { return m_size; }
+
+	unsigned int m_materialIndex;
 protected:
 private:
 	MeshObject(MeshObject& other) {}
@@ -39,7 +41,6 @@ private:
 	unsigned int m_vbo;
 	unsigned int m_ibo;
 	unsigned int m_size;
-	unsigned int m_materialIndex;
 };
 
 class Mesh
@@ -50,13 +51,13 @@ public:
 
 	virtual ~Mesh();
 
-	void Draw() const;
+	void Draw(bool drawTextures = true) const;
 protected:
 private:
 	Mesh(Mesh& mesh) {}
 	void operator=(Mesh& mesh) {}
 
-	void InitMesh(Vertex* vertices, int vertSize, int* indices, int indexSize, bool calcNormals = true);
+	void InitMesh(Vertex* vertices, int vertSize, int* indices, int indexSize, bool calcNormals, unsigned int materialIndex);
 
 	std::string m_fileName;
 	std::vector<MeshObject*> m_meshObjects;

@@ -68,7 +68,7 @@ void SkyBox::Draw(Camera* camera)
 	glDepthFunc(GL_LEQUAL);
 
 	m_shader.SetUniform("MVP", camera->GetViewProjection() * Matrix4f().InitTranslation(camera->GetPos()));
-	m_cube->Draw();
+	m_cube->Draw(false);
 
 	glCullFace(oldCullFaceMode);
 	glDepthFunc(oldDepthFuncMode);

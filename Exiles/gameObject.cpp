@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-GameObject::GameObject(Mesh* mesh, Texture* diffuse, Texture* normalMap, Texture* specularMap) :
-m_mesh(mesh), m_diffuse(diffuse), m_normalMap(normalMap), m_specularMap(specularMap)
+GameObject::GameObject(Mesh* mesh, Texture* normalMap, Texture* specularMap) :
+m_mesh(mesh), m_normalMap(normalMap), m_specularMap(specularMap)
 {
 	
 }
@@ -11,8 +11,8 @@ m_mesh(mesh), m_diffuse(diffuse), m_normalMap(normalMap), m_specularMap(specular
 GameObject::~GameObject()
 {
 	if (m_mesh) delete m_mesh;
-	if (m_diffuse) delete m_diffuse;
 	if (m_normalMap) delete m_normalMap;
+	if (m_specularMap) delete m_specularMap;
 }
 
 void GameObject::RenderMesh(Shader* shader)
@@ -23,7 +23,6 @@ void GameObject::RenderMesh(Shader* shader)
 
 void GameObject::Draw(Shader* shader, Camera* camera)
 {
-	m_diffuse->Bind(1);
 	m_normalMap->Bind(2);
 	m_specularMap->Bind(3);
 

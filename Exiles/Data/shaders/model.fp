@@ -75,6 +75,7 @@ void main()
 	}
 
 	vec3 light = (clamp(dot(-normalize(lightDirection), tNormal), 0.0, 1.0) + specularColor);
-
+	if (diffuse.a < 0.7)
+		discard;
 	gl_FragColor = vec4(diffuse.rgb * light * shadowFracor, diffuse.a);
 }
