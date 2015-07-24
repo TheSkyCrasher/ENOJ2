@@ -55,6 +55,9 @@
     <ClInclude Include="skybox.h">
       <Filter>Engine core\Game</Filter>
     </ClInclude>
+    <ClInclude Include="frameBuffer.h">
+      <Filter>Engine core\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -108,6 +111,9 @@
     <ClCompile Include="skybox.cpp">
       <Filter>Engine core\Game</Filter>
     </ClCompile>
+    <ClCompile Include="frameBuffer.cpp">
+      <Filter>Engine core\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine core">
@@ -155,6 +161,12 @@
       <Filter>Engine core\Shaders</Filter>
     </None>
     <None Include="Data\shaders\skybox.vp">
+      <Filter>Engine core\Shaders</Filter>
+    </None>
+    <None Include="Data\shaders\position.fp">
+      <Filter>Engine core\Shaders</Filter>
+    </None>
+    <None Include="Data\shaders\position.vp">
       <Filter>Engine core\Shaders</Filter>
     </None>
   </ItemGroup>

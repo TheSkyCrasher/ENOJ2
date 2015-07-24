@@ -14,12 +14,13 @@
 #include "light.h"
 #include "skybox.h"
 #include "grass.h"
+#include "frameBuffer.h"
 #include <vector>
 
 class Game
 {
 public:
-	Game() : m_defaultShader("model") {}
+	Game() : m_defaultShader("model"), m_positionShader("position") {}
 	virtual ~Game();
 
 	void Start();
@@ -34,7 +35,10 @@ private:
 	Camera* m_mainCamera;
 	DirectionalLight m_light;
 	GLuint m_screenTexture;
-	Shader m_defaultShader;
+	FrameBuffer m_gBuffer;
 	SkyBox m_skybox;
 	Grass m_grass;
+
+	Shader m_defaultShader;
+	Shader m_positionShader;
 };

@@ -23,12 +23,15 @@ MeshObject::~MeshObject()
 
 Mesh::Mesh(Vertex* vertices, int vertSize, int* indices, int indexSize, bool calcNormals)
 {
+	InitDefaults();
 	InitMesh(vertices, vertSize, indices, indexSize, calcNormals, 0);
 }
 
 Mesh::Mesh(const std::string& fileName)
 {
 	m_fileName = "Data/models/" + fileName;
+
+	InitDefaults();
 
 	Assimp::Importer importer;
 
@@ -91,13 +94,58 @@ Mesh::Mesh(const std::string& fileName)
 			}
 		}
 		else {
-			m_textures.push_back(new Texture("white.png"));
+			m_textures.push_back(m_defaults[0]);
 		}
 
-		std::cout << material->GetTextureCount(aiTextureType_NORMALS) << "\n";
+		if (material->GetTextureCount(aiTextureType_HEIGHT) > 0) {
+			if (material->GetTexture(aiTextureType_HEIGHT, 0, &path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS) {
+				std::string textureName(path.data);
+				std::size_t found = textureName.find_last_of("/\\");
+				textureName = textureName.substr(found + 1);
+
+				m_textures.push_back(new Texture(textureName));
+			}
+		}
+		else {
+			m_textures.push_back(m_defaults[1]);
+		}
+
+		if (material->GetTextureCount(aiTextureType_SPECULAR) > 0) {
+			if (material->GetTexture(aiTextureType_SPECULAR, 0, &path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS) {
+				std::string textureName(path.data);
+				std::size_t found = textureName.find_last_of("/\\");
+				textureName = textureName.substr(found + 1);
+
+				m_textures.push_back(new Texture(textureName));
+			}
+		}
+		else {
+			m_textures.push_back(m_defaults[2]);
+		}
+
+		std::cout << m_fileName << "\n" << material->GetTextureCount(aiTextureType_NONE) << " ";
+		std::cout << material->GetTextureCount(aiTextureType_DIFFUSE) << " ";
+		std::cout << material->GetTextureCount(aiTextureType_SPECULAR) << " ";
+		std::cout << material->GetTextureCount(aiTextureType_AMBIENT) << " ";
+		std::cout << material->GetTextureCount(aiTextureType_EMISSIVE) << " ";
+		std::cout << material->GetTextureCount(aiTextureType_HEIGHT) << " ";
+		std::cout << material->GetTextureCount(aiTextureType_NORMALS) << " ";
+		std::cout << material->GetTextureCount(aiTextureType_SHININESS) << " ";
+		std::cout << material->GetTextureCount(aiTextureType_OPACITY) << " ";
+		std::cout << material->GetTextureCount(aiTextureType_DISPLACEMENT) << " ";
+		std::cout << material->GetTextureCount(aiTextureType_LIGHTMAP) << " ";
+		std::cout << material->GetTextureCount(aiTextureType_REFLECTION) << " ";
+		std::cout << material->GetTextureCount(aiTextureType_UNKNOWN) << "\n -------- \n";
 	}
 
 	m_size = m_meshObjects.size();
+}
+
+void Mesh::InitDefaults()
+{
+	m_defaults[0] = new Texture("default_diff.png");
+	m_defaults[1] = new Texture("default_norm.png");
+	m_defaults[2] = new Texture("default_spec.png");
 }
 
 void Mesh::InitMesh(Vertex* vertices, int vertSize, int* indices, int indexSize, bool calcNormals, unsigned int mMaterialIndex)
@@ -121,10 +169,13 @@ Mesh::~Mesh()
 		if (m_meshObjects[i]) delete m_meshObjects[i];
 	}
 
-	for (unsigned int i = 0; i < m_textures.size(); ++i)
+	for (unsigned int i = 0; i < m_textures.size(); i+=3)
 	{
 		if (m_textures[i]) delete m_textures[i];
 	}
+
+	if (m_defaults[1]) delete m_defaults[1];
+	if (m_defaults[2]) delete m_defaults[2];
 }
 
 void Mesh::Draw(bool drawTextures) const
@@ -141,8 +192,16 @@ void Mesh::Draw(bool drawTextures) const
 		{
 			const unsigned int materialIndex = m_meshObjects[i]->m_materialIndex;
 
-			if (materialIndex < m_textures.size() && m_textures[materialIndex]) {
-				m_textures[materialIndex]->Bind(1);
+			if (materialIndex*3 < m_textures.size() && m_textures[materialIndex*3]) {
+				m_textures[materialIndex*3]->Bind(1);
+			}
+
+			if (materialIndex*3 < m_textures.size() && m_textures[materialIndex * 3 + 1]) {
+				m_textures[materialIndex * 3 + 1]->Bind(2);
+			}
+
+			if (materialIndex * 3 < m_textures.size() && m_textures[materialIndex * 3 + 2]) {
+				m_textures[materialIndex * 3 + 2]->Bind(3);
 			}
 		}
 

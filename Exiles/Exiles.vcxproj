@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="camera.h" />
     <ClInclude Include="debugTimer.h" />
+    <ClInclude Include="frameBuffer.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="grass.h" />
@@ -32,6 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="frameBuffer.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="grass.cpp" />
@@ -56,6 +58,8 @@
     <None Include="Data\shaders\light.vp" />
     <None Include="Data\shaders\model.fp" />
     <None Include="Data\shaders\model.vp" />
+    <None Include="Data\shaders\position.fp" />
+    <None Include="Data\shaders\position.vp" />
     <None Include="Data\shaders\skybox.fp" />
     <None Include="Data\shaders\skybox.vp" />
   </ItemGroup>
@@ -94,6 +98,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>.\include;$(IncludePath)</IncludePath>
     <LibraryPath>.\lib;$(LibraryPath)</LibraryPath>
+    <ExtensionsToDeleteOnClean>*.lib;*.exp;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -124,6 +129,9 @@
       <AdditionalDependencies>glew32.lib;glew32s.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;opengl32.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

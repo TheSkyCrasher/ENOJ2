@@ -7,6 +7,8 @@ in vec2 fTexCoord;
 in vec4 fShadowCoord;
 in float fDistance;
 
+layout(location = 0) out vec4 FragColor;
+
 float CalcShadowFactor(vec4 LightSpacePos)
 {
     vec3 ProjCoords = LightSpacePos.xyz / LightSpacePos.w;
@@ -32,5 +34,5 @@ void main()
 	if (diffuse.a < 0.5)
 		discard;
 
-	gl_FragColor = vec4(diffuse.rgb * shadow,diffuse.a);
+	FragColor = vec4(diffuse.rgb * shadow,diffuse.a);
 }

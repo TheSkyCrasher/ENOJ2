@@ -21,10 +21,11 @@ DirectionalLight::DirectionalLight() : m_shader("light")
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	m_direction = Vector3f(0.0f, -0.5f, 0.4f);
-	Matrix4f projection = Matrix4f().InitPerspective(ToRadians(60.0f), Window::GetAspect(), 0.1f, 1000.0f);
-	Matrix4f rotation = Matrix4f().InitRotationFromDirection(m_direction, Vector3f(0.0f, 1.0f, 0.0f));
-	Matrix4f position = Matrix4f().InitTranslation(Vector3f(0.0f, 5.5f, -7.8f) * -1.0f);
+	m_direction = Vector3f(0.0f, -0.3f, 0.4f);
+	//.InitPerspective(ToRadians(60.0f), Window::GetAspect(), 0.1f, 1000.0f);
+	Matrix4f projection = Matrix4f().InitOrthographic(-10.0f, 10.0f, -10.0f, 10.0f, -10.0f, 20.0f);
+	Matrix4f rotation = Matrix4f().InitRotationFromDirection(m_direction * -1.0f, Vector3f(0.0f, 1.0f, 0.0f));
+	Matrix4f position = Matrix4f().InitTranslation(Vector3f(0.0f, 3.5f, 3.0f) * -1.0f);
 	m_MVP = projection * rotation * position;
 }
 
@@ -61,14 +62,12 @@ GLuint DirectionalLight::CreateDepthTexture(unsigned int width, unsigned int hei
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 
 	return texture;
 }

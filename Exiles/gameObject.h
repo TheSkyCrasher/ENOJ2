@@ -10,7 +10,6 @@ class GameObject
 {
 public:
 	GameObject(Mesh* mesh, 
-		Texture* normalMap = new Texture("default_NRM.png"), 
 		Texture* specularMap = new Texture("default_SPEC.png"));
 
 	virtual ~GameObject();
@@ -27,7 +26,6 @@ private:
 	unsigned int m_gloom;
 
 	Mesh* m_mesh;
-	Texture* m_normalMap;
 	Texture* m_specularMap;
 	Transform m_transform;
 };

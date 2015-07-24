@@ -13,7 +13,8 @@ private:
 
 void Exiles::Init()
 {
-	podium = new GameObject(new Mesh("podium.lwo"), new Texture("default_NRM.png"), new Texture("default_SPEC.png"));
+	podium = new GameObject(new Mesh("podium.lwo"));
+
 	Camera* camera = new Camera(Matrix4f().InitPerspective(ToRadians(60.0f), Window::GetAspect(), 0.1f, 1000.0f));
 
 	AddToScene(podium);

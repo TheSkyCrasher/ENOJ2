@@ -9,9 +9,11 @@ in vec4 fShadowCoord;
 uniform sampler2D diffuseTex;
 uniform sampler2D normalTex;
 uniform sampler2D specularTex;
-uniform sampler2DShadow depthTex;
+uniform sampler2D depthTex;
 uniform vec3 lightDirection;
 uniform vec3 cameraPosition;
+
+layout(location = 0) out vec4 FragColor;
 
 float CalcShadowFactor(vec4 LightSpacePos)
 {
@@ -20,25 +22,12 @@ float CalcShadowFactor(vec4 LightSpacePos)
     UVCoords.x = 0.5 * ProjCoords.x + 0.5;
     UVCoords.y = 0.5 * ProjCoords.y + 0.5;
     float z = 0.5 * ProjCoords.z + 0.5;
-    
-	if (UVCoords.x >= 0.0 &&  UVCoords.x <= 1.0 &&  UVCoords.y >= 0.0 &&  UVCoords.y <= 1.0)
-	{
-		float xOffset = 1.0/2048;
-		float yOffset = 1.0/2048;
 
-		float Factor = 0.0;
-
-		for (int y = -1 ; y <= 1 ; y++) {
-			for (int x = -1 ; x <= 1 ; x++) {
-				vec2 Offsets = vec2(x * xOffset, y * yOffset);
-				vec3 UVC = vec3(UVCoords + Offsets, z + 0.00001);
-				Factor += texture(depthTex, UVC);
-			}
-		}
-
-		return (0.2 + (Factor / 11.25));
-	} else
-		return 1.0;
+	float Depth = texture(depthTex, UVCoords).x;
+    if (Depth < (z + 0.00001) && UVCoords.x >= 0.0 &&  UVCoords.x <= 1.0 &&  UVCoords.y >= 0.0 &&  UVCoords.y <= 1.0)
+        return 0.2;
+    else
+        return 1.0;
 }
 
 void main()
@@ -77,5 +66,5 @@ void main()
 	vec3 light = (clamp(dot(-normalize(lightDirection), tNormal), 0.0, 1.0) + specularColor);
 	if (diffuse.a < 0.7)
 		discard;
-	gl_FragColor = vec4(diffuse.rgb * light * shadowFracor, diffuse.a);
+	FragColor = vec4(vec3(0.1) + shadowFracor * diffuse.rgb * light, diffuse.a);
 }

@@ -47,6 +47,14 @@ void Game::Start()
 			m_objects[i]->RenderMesh(m_light.GetShader());
 		}
 
+		m_gBuffer.BindForWriting();
+		m_positionShader.Bind();
+		for (unsigned int i = 0; i < renderObjects; ++i)
+		{
+			m_positionShader.SetUniform("MVP", m_mainCamera->GetViewProjection() * m_objects[i]->GetTransform().GetTransformation());
+			m_objects[i]->RenderMesh(m_light.GetShader());
+		}
+
 		Window::SetRenderToScreen();
 		Window::Clear(0.0f, 0.3f, 0.6f, 1.0f);
 
