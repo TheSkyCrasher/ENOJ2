@@ -8,17 +8,16 @@ public:
 	virtual void Init();
 	virtual void Update();
 private:
-	GameObject* podium;
+	GameObject* scene01;
 };
 
 void Exiles::Init()
 {
-	podium = new GameObject(new Mesh("podium.lwo"));
+	scene01 = new GameObject(new Mesh("scene01.fbx"));
+	scene01->GetTransform().SetScale(0.01f);
 
-	Camera* camera = new Camera(Matrix4f().InitPerspective(ToRadians(60.0f), Window::GetAspect(), 0.1f, 1000.0f));
-
-	AddToScene(podium);
-	SetCamera(camera);
+	AddToScene(scene01);
+	SetCamera(new Camera(Matrix4f().InitPerspective(ToRadians(60.0f), Window::GetAspect(), 0.1f, 1000.0f)));
 }
 
 void Exiles::Update()

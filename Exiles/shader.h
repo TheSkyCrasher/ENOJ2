@@ -11,7 +11,7 @@ public:
 	ShaderData(const std::string& fileName, bool enableGeometric);
 	virtual ~ShaderData();
 
-	inline int GetProgram() { return m_program; }
+	int m_program;
 	inline std::vector<int>& GetShaders() { return m_shaders; }
 
 	std::map<std::string, GLuint> m_uniformsi;
@@ -28,7 +28,6 @@ private:
 	void AddUniforms(const std::string& shaderText);
 	void CompileShader();
 
-	int m_program;
 	std::vector<int> m_shaders;
 };
 
@@ -42,6 +41,8 @@ public:
 	void SetUniform(const std::string& name, float value);
 	void SetUniform(const std::string& name, const Vector3f& value);
 	void SetUniform(const std::string& name, const Matrix4f& value);
+
+	int GetProgram() { return m_shaderData->m_program; }
 
 	virtual ~Shader();
 protected:

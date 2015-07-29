@@ -2,43 +2,73 @@
 #include "stb_image.h"
 #include <iostream>
 
+std::map<std::string, TextureData*> Texture::s_resourceMap;
+
+TextureData::TextureData(GLenum textureTarget)
+{
+	glGenTextures(1, &m_textureID);
+	m_textureTarget = textureTarget;
+}
+
+TextureData::~TextureData()
+{
+	if (m_textureID) glDeleteTextures(1, &m_textureID);
+}
+
+
 Texture::Texture(const std::string& fileName, bool transparent)
 {
-	int width, height, numComponents;
-    unsigned char* data = stbi_load(("Data/images/" + fileName).c_str(), &width, &height, &numComponents, 4);
+	m_fileName = fileName;
 
-    if(data == NULL)
-		std::cerr << "Unable to load texture: " << "Data/images/" + fileName << std::endl;
-        
-    glGenTextures(1, &m_texture);
-    glBindTexture(GL_TEXTURE_2D, m_texture);
-    
-	if (!transparent)
+	std::map<std::string, TextureData*>::const_iterator it = s_resourceMap.find(fileName);
+	if (it != s_resourceMap.end())
 	{
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		m_textureData = it->second;
+		m_textureData->AddReference();
 	}
 	else {
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	}
-       
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 8);
+		int width, height, numComponents;
+		unsigned char* data = stbi_load(("Data/" + fileName).c_str(), &width, &height, &numComponents, 4);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-    stbi_image_free(data);
-	glBindTexture(GL_TEXTURE_2D, 0);
+		if (data == NULL)
+			std::cerr << "Unable to load texture: " << "Data/" + fileName << std::endl;
+
+		InitTexture(width, height, data, GL_TEXTURE_2D, GL_LINEAR);
+		stbi_image_free(data);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		s_resourceMap.insert(std::pair<std::string, TextureData*>(fileName, m_textureData));
+	}
 }
 
 Texture::~Texture()
 {
-	glDeleteTextures(1, &m_texture);
+	std::cout << m_fileName << " " << m_textureData->GetReferenceCount() << "\n";
+	if (m_textureData && m_textureData->RemoveReference())
+	{
+		if (m_fileName.length() > 0)
+			s_resourceMap.erase(m_fileName);
+
+		delete m_textureData;
+	}
 }
 
 void Texture::Bind(unsigned int unit)
 {
 	glActiveTexture(GL_TEXTURE0 + unit);
-	glBindTexture(GL_TEXTURE_2D, m_texture);
+	glBindTexture(m_textureData->GetTextureTarget(), m_textureData->GetTextureID());
+}
+
+void Texture::InitTexture(int width, int height, unsigned char* data, GLenum textureTarget, GLfloat filter)
+{
+	if (width > 0 && height > 0 && data != 0)
+	{
+		m_textureData = new TextureData(textureTarget);
+		glBindTexture(textureTarget, m_textureData->GetTextureID());
+
+		glTexParameterf(textureTarget, GL_TEXTURE_MIN_FILTER, filter);
+		glTexParameterf(textureTarget, GL_TEXTURE_MAG_FILTER, filter);
+
+		glTexImage2D(textureTarget, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	}
 }

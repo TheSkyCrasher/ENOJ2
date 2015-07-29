@@ -292,7 +292,7 @@ Shader::~Shader()
 
 void Shader::Bind()
 {
-	glUseProgram(m_shaderData->GetProgram());
+	glUseProgram(m_shaderData->m_program);
 }
 
 void Shader::SetUniform(const std::string& name, int value)

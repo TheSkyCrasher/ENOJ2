@@ -14,13 +14,12 @@
 #include "light.h"
 #include "skybox.h"
 #include "grass.h"
-#include "frameBuffer.h"
 #include <vector>
 
 class Game
 {
 public:
-	Game() : m_defaultShader("model"), m_positionShader("position") {}
+	Game() : m_defaultShader("model") {}
 	virtual ~Game();
 
 	void Start();
@@ -34,11 +33,8 @@ private:
 	std::vector<GameObject*> m_objects;
 	Camera* m_mainCamera;
 	DirectionalLight m_light;
-	GLuint m_screenTexture;
-	FrameBuffer m_gBuffer;
 	SkyBox m_skybox;
 	Grass m_grass;
 
 	Shader m_defaultShader;
-	Shader m_positionShader;
 };

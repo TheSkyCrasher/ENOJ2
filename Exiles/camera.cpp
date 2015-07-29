@@ -18,6 +18,16 @@ Matrix4f Camera::GetViewProjection() const
 	return m_projection * cameraRotation * cameraTranslation;
 }
 
+Matrix4f Camera::GetView() const
+{
+	Matrix4f cameraRotation = m_transform.GetTransformedRot().Conjugate().ToRotationMatrix();
+	Matrix4f cameraTranslation;
+
+	cameraTranslation.InitTranslation(m_transform.GetTransformedPos() * -1);
+
+	return cameraRotation * cameraTranslation;
+}
+
 void Camera::UpdatePosition(float delta)
 {
 	float movAmt = 10.0f * delta;

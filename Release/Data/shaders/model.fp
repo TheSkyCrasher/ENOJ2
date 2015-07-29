@@ -10,6 +10,7 @@ uniform sampler2D diffuseTex;
 uniform sampler2D normalTex;
 uniform sampler2D specularTex;
 uniform sampler2DShadow depthTex;
+uniform sampler2D ssaoTex;
 uniform vec3 lightDirection;
 uniform vec3 cameraPosition;
 
@@ -22,7 +23,7 @@ float CalcShadowFactor(vec4 LightSpacePos)
     UVCoords.x = 0.5 * ProjCoords.x + 0.5;
     UVCoords.y = 0.5 * ProjCoords.y + 0.5;
     float z = 0.5 * ProjCoords.z + 0.5;
-    
+
 	if (UVCoords.x >= 0.0 &&  UVCoords.x <= 1.0 &&  UVCoords.y >= 0.0 &&  UVCoords.y <= 1.0)
 	{
 		float xOffset = 1.0/2048;
@@ -33,23 +34,22 @@ float CalcShadowFactor(vec4 LightSpacePos)
 		for (int y = -1 ; y <= 1 ; y++) {
 			for (int x = -1 ; x <= 1 ; x++) {
 				vec2 Offsets = vec2(x * xOffset, y * yOffset);
-				vec3 UVC = vec3(UVCoords + Offsets, z + 0.00001);
+				vec3 UVC = vec3(UVCoords + Offsets, z - 0.005);
 				Factor += texture(depthTex, UVC);
 			}
 		}
 
 		return (0.2 + (Factor / 11.25));
-	} else
+	} else 
 		return 1.0;
 }
 
 void main()
 {
 	vec4 diffuse = texture2D(diffuseTex, fTexCoord);
-	vec3 tNormal = normalize(fNormal);
+	vec3 normal = normalize(fNormal);
 	vec3 specularColor = vec3(0.0,0.0,0.0);
 
-	vec3 normal = tNormal;
 	vec3 tangent = normalize(fTangent);
 	tangent = normalize(tangent - dot(tangent, normal) * normal);
 	vec3 bitangent = cross(tangent, normal);
@@ -57,17 +57,17 @@ void main()
 	texNormal = 2.0 * texNormal - vec3(1.0, 1.0, 1.0);
 
 	mat3 TBN = mat3(tangent, bitangent, normal);
-	tNormal = normalize(TBN * texNormal);
+	normal = normalize(TBN * texNormal);
 
 	float shadowFracor = CalcShadowFactor(fShadowCoord);
 	if (shadowFracor == 1.0)
 	{
-		float diffuseFactor = dot(tNormal, -normalize(lightDirection));
+		float diffuseFactor = dot(normal, -normalize(lightDirection));
 		float specularIntensity = texture2D(specularTex, fTexCoord).r;
 
 		if (diffuseFactor > 0) {
 			vec3 vertexToEye = normalize(cameraPosition - fWorldPos);
-			vec3 lightReflect = normalize(reflect(lightDirection, tNormal));
+			vec3 lightReflect = normalize(reflect(lightDirection, normal));
 			float specularFactor = dot(vertexToEye, lightReflect);
 			if (specularFactor > 0) {
 				specularFactor = pow(specularFactor, 64);
@@ -76,8 +76,11 @@ void main()
 		}
 	}
 
-	vec3 light = (clamp(dot(-normalize(lightDirection), tNormal), 0.0, 1.0) + specularColor);
+	vec3 light = (clamp(dot(-normalize(lightDirection), normal), 0.0, 1.0) + specularColor);
 	if (diffuse.a < 0.7)
 		discard;
-	FragColor = vec4(diffuse.rgb * light * shadowFracor, diffuse.a);
+
+	vec3 ambientColor = vec3(0.07,0.07,0.07) * diffuse.rgb;
+
+	FragColor = vec4(ambientColor + diffuse.rgb * light * shadowFracor, diffuse.a);
 }

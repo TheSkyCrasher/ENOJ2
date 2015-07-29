@@ -43,7 +43,6 @@ void Window::Create(int width, int height, const std::string& title)
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_DEPTH_CLAMP);
-	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	s_isOpen = true;
@@ -68,7 +67,6 @@ void Window::Close()
 void Window::Clear(float r, float g, float b, float a)
 {
 	glClearColor(r, g, b, a);
-	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 	glViewport(0, 0, GetWidth(), GetHeight());
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glCullFace(GL_BACK);

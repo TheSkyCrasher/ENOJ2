@@ -46,7 +46,7 @@ private:
 class Mesh
 {
 public:
-	Mesh(const std::string& fileName);
+	Mesh(const std::string& fileName, bool def = false);
 	Mesh(Vertex* vertices, int vertSize, int* indices, int indexSize, bool calcNormals);
 
 	virtual ~Mesh();
@@ -58,11 +58,9 @@ private:
 	void operator=(Mesh& mesh) {}
 
 	void InitMesh(Vertex* vertices, int vertSize, int* indices, int indexSize, bool calcNormals, unsigned int materialIndex);
-	void InitDefaults();
 
 	std::string m_fileName;
 	std::vector<MeshObject*> m_meshObjects;
 	std::vector<Texture*> m_textures;
-	Texture* m_defaults[3];
 	unsigned int m_size;
 };

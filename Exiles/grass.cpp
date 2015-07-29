@@ -6,7 +6,7 @@
 
 Grass::Grass() : m_shader("grass")
 {
-	m_grassTex = new Texture("grass0.png", true);
+	m_grassTex = new Texture("images/grass0.png", true);
 
 	PerlinNoise pn(rand() % 100000);
 
@@ -15,7 +15,7 @@ Grass::Grass() : m_shader("grass")
 		for (unsigned int j = 0; j < 100; ++j)
 		{
 			m_grassRnd.push_back(pn.noise((float)i / 100.0f * 2, (float)j / 100.0f * 2, 0.8f));
-			m_grassMatrices.push_back(Matrix4f().InitTranslation(Vector3f(5.0f - (float)i / 10.0f, 0.0f, 5.0f - (float)j / 10.0f) * -1.0f) * Matrix4f().InitRotationEuler((0.5f - ToRadians(rand() % 360 + 1)* *m_grassRnd.end())*0.1f, ToRadians(rand() % 360 + 1), (0.5f - ToRadians(rand() % 360 + 1)* *m_grassRnd.end())*0.1f));
+			m_grassMatrices.push_back(Matrix4f().InitTranslation(Vector3f(5.0f - (float)i / 10.0f, 0.0f, 5.0f - (float)j / 10.0f) * -1.0f) * Matrix4f().InitRotationEuler((1.5f - ToRadians(rand() % 180 + 1)* *m_grassRnd.end())*0.1f, ToRadians(rand() % 360 + 1), (1.5f - ToRadians(rand() % 180 + 1)* *m_grassRnd.end())*0.1f));
 		}
 	}
 
@@ -99,11 +99,13 @@ void Grass::Draw(Camera* camera, const Matrix4f& lightMVP)
 
 	m_grassTex->Bind(1);
 
+	glEnable(GL_BLEND);
 	glDisable(GL_CULL_FACE);
 	glBindVertexArray(m_VAO);
 	glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, m_grassMatrices.size());
 	glBindVertexArray(0);
 	glEnable(GL_CULL_FACE);
+	glDisable(GL_BLEND);
 }
 
 Grass::~Grass()

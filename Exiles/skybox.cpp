@@ -45,7 +45,7 @@ void CubemapTexture::Bind(unsigned int unit)
 
 SkyBox::SkyBox() : m_shader("skybox")
 {
-	m_cube = new Mesh("cube.obj");
+	m_cube = new Mesh("cube.obj", true);
 	m_texture = new CubemapTexture("skybox");
 }
 
