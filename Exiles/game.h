@@ -9,11 +9,12 @@
 #include "transform.h"
 #include "camera.h"
 #include "input.h"
-#include "gameObject.h"
 #include "timer.h"
 #include "light.h"
 #include "skybox.h"
 #include "grass.h"
+#include "physics.h"
+#include "MeshObject.h"
 #include <vector>
 
 class Game
@@ -27,10 +28,10 @@ public:
 	virtual void Init() = 0;
 	virtual void Update() = 0;
 
-	void AddToScene(GameObject* gameObject) { m_objects.push_back(gameObject); }
+	void AddToScene(MeshObject* gameObject) { m_objects.push_back(gameObject); Physics::AddBody(gameObject); }
 	void SetCamera(Camera* camera) { m_mainCamera = camera; }
 private:
-	std::vector<GameObject*> m_objects;
+	std::vector<MeshObject*> m_objects;
 	Camera* m_mainCamera;
 	DirectionalLight m_light;
 	SkyBox m_skybox;

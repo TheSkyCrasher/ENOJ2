@@ -4,6 +4,8 @@
 
 Game::~Game()
 {
+	Physics::Delete();
+
 	for (unsigned int i = 0; i < m_objects.size(); ++i)
 	{
 		if (m_objects[i])
@@ -29,19 +31,34 @@ void Game::Start()
 	m_defaultShader.SetUniform("normalTex", 2);
 	m_defaultShader.SetUniform("specularTex", 3);
 
+	Physics::Init(9.8f);
+
 	Init();
 	unsigned int renderObjects = m_objects.size();
 	while (Window::IsOpen())
 	{
 		Input::Update();
 		Timer::Update();
+		float dt = Timer::deltaTime();
+		Physics::Update(dt);
+
 		m_mainCamera->Update(Timer::deltaTime());
 
 		if (Input::GetKeyDown(Input::KEY_ESCAPE))
+		{
 			Window::Close();
+		}
+
+		if (Input::GetMouseDown(Input::LEFT_MOUSE))
+		{
+			AddToScene(new RigidBody(new Mesh("ball.lwo"), new btSphereShape(0.32f), 1.0f, m_mainCamera->GetPos()));
+			m_objects[renderObjects]->GetPhysicsBody()->applyImpulse(btVector3(m_mainCamera->GetDirection().GetX(), m_mainCamera->GetDirection().GetY(), m_mainCamera->GetDirection().GetZ())*30.0f,
+				btVector3(0, 0, 0));
+			renderObjects++;
+		}
 
 		Update();
-
+		static float x = 0.0f;
 		m_light.SetRender();
 		for (unsigned int i = 0; i < renderObjects; ++i)
 		{

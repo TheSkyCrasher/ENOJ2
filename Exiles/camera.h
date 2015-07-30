@@ -16,6 +16,7 @@ public:
 	Matrix4f GetViewProjection() const;
 	Matrix4f GetView() const;
 	const Vector3f& GetPos() { return m_transform.GetPos(); }
+	const Vector3f& GetDirection() { return m_transform.GetRot().GetForward(); }
 private:
 	Transform m_transform;
 	Matrix4f m_projection;

@@ -31,9 +31,6 @@
     <ClInclude Include="math.h">
       <Filter>Engine core\Stuff</Filter>
     </ClInclude>
-    <ClInclude Include="gameObject.h">
-      <Filter>Engine core\Game</Filter>
-    </ClInclude>
     <ClInclude Include="transform.h">
       <Filter>Engine core\Stuff</Filter>
     </ClInclude>
@@ -54,6 +51,18 @@
     </ClInclude>
     <ClInclude Include="skybox.h">
       <Filter>Engine core\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="physics.h">
+      <Filter>Physics core</Filter>
+    </ClInclude>
+    <ClInclude Include="meshObject.h">
+      <Filter>Engine core\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="staticBody.h">
+      <Filter>Physics core</Filter>
+    </ClInclude>
+    <ClInclude Include="rigidBody.h">
+      <Filter>Physics core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -84,9 +93,6 @@
     <ClCompile Include="math.cpp">
       <Filter>Engine core\Stuff</Filter>
     </ClCompile>
-    <ClCompile Include="gameObject.cpp">
-      <Filter>Engine core\Game</Filter>
-    </ClCompile>
     <ClCompile Include="transform.cpp">
       <Filter>Engine core\Stuff</Filter>
     </ClCompile>
@@ -107,6 +113,18 @@
     </ClCompile>
     <ClCompile Include="skybox.cpp">
       <Filter>Engine core\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="physics.cpp">
+      <Filter>Physics core</Filter>
+    </ClCompile>
+    <ClCompile Include="meshObject.cpp">
+      <Filter>Engine core\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="rigidBody.cpp">
+      <Filter>Physics core</Filter>
+    </ClCompile>
+    <ClCompile Include="staticBody.cpp">
+      <Filter>Physics core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +148,9 @@
     </Filter>
     <Filter Include="Engine core\Stuff\stb_image">
       <UniqueIdentifier>{2a39349b-49af-462d-bead-ca1a927a3f7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics core">
+      <UniqueIdentifier>{afd7686c-e76c-4b16-bc86-a3f8716ed7d1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
