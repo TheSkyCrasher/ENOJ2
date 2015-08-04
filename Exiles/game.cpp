@@ -33,7 +33,13 @@ void Game::Start()
 
 	Physics::Init(9.8f);
 
-	Init();
+	Init();	
+	RigidBody* ak74 = new RigidBody(new Mesh("ak74.fbx"));
+	btConvexHullShape* ak74collision = ak74->GetMesh()->GetConvexCollisionShape();
+	ak74->SetCollision(ak74->GetMesh()->GetConvexCollisionShape());
+	ak74->SetMass(1.0f);
+	ak74->SetPos(0.0f, 2.0f, 1.0f);
+	AddToScene(ak74);
 	unsigned int renderObjects = m_objects.size();
 	while (Window::IsOpen())
 	{
@@ -51,14 +57,18 @@ void Game::Start()
 
 		if (Input::GetMouseDown(Input::LEFT_MOUSE))
 		{
-			AddToScene(new RigidBody(new Mesh("ball.lwo"), new btSphereShape(0.32f), 1.0f, m_mainCamera->GetPos()));
+			RigidBody* temp = new RigidBody(new Mesh("ak74.fbx"));
+			temp->SetCollision(ak74collision);
+			temp->SetMass(5.0f);
+			temp->SetPos(m_mainCamera->GetPos() + m_mainCamera->GetDirection());
+			AddToScene(temp);
 			m_objects[renderObjects]->GetPhysicsBody()->applyImpulse(btVector3(m_mainCamera->GetDirection().GetX(), m_mainCamera->GetDirection().GetY(), m_mainCamera->GetDirection().GetZ())*30.0f,
 				btVector3(0, 0, 0));
 			renderObjects++;
 		}
 
 		Update();
-		static float x = 0.0f;
+
 		m_light.SetRender();
 		for (unsigned int i = 0; i < renderObjects; ++i)
 		{
@@ -70,7 +80,11 @@ void Game::Start()
 		Window::Clear(0.0f, 0.3f, 0.6f, 1.0f);
 
 		m_skybox.Draw(m_mainCamera);
-		
+
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		m_terrain.Draw(m_mainCamera->GetViewProjection());
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 		glDisable(GL_CULL_FACE);
 		m_defaultShader.Bind();
 		m_defaultShader.SetUniform("cameraPosition", m_mainCamera->GetPos());

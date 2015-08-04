@@ -21,6 +21,8 @@ MeshSubObjectWrapper::~MeshSubObjectWrapper()
 	{
 		if (m_textures[i]) delete m_textures[i];
 	}
+
+	if (m_collisionShape) delete m_collisionShape;
 }
 
 MeshSubObject::MeshSubObject(unsigned int indexSize)
@@ -104,7 +106,6 @@ Mesh::Mesh(const std::string& fileName, bool def)
 				indices.push_back(face.mIndices[1]);
 				indices.push_back(face.mIndices[2]);
 			}
-
 			InitMesh(&vertices[0], vertices.size(), (int*)&indices[0], indices.size(), false, model->mMaterialIndex);
 		}
 
@@ -192,6 +193,11 @@ void Mesh::InitMesh(Vertex* vertices, int vertSize, int* indices, int indexSize,
 	MeshSubObject* m_meshObject = new MeshSubObject(indexSize);
 	m_meshObject->m_materialIndex = mMaterialIndex;
 
+	for (int i = 0; i < vertSize; ++i)
+	{
+		m_meshObject->m_points.push_back(vertices[i].pos);
+	}
+
 	glBindBuffer(GL_ARRAY_BUFFER, *m_meshObject->GetVBO());
 	glBufferData(GL_ARRAY_BUFFER, vertSize * sizeof(Vertex), vertices, GL_STATIC_DRAW);
 
@@ -199,6 +205,31 @@ void Mesh::InitMesh(Vertex* vertices, int vertSize, int* indices, int indexSize,
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexSize * sizeof(int), indices, GL_STATIC_DRAW);
 
 	m_mw->m_meshObjects.push_back(m_meshObject);
+}
+
+btConvexHullShape* Mesh::GetConvexCollisionShape()
+{
+	btConvexHullShape* convexShape = new btConvexHullShape();
+	for (unsigned int i = 0; i < m_mw->m_meshObjects[0]->m_points.size(); ++i)
+	{
+		convexShape->addPoint(btVector3(m_mw->m_meshObjects[0]->m_points[i].GetX(), m_mw->m_meshObjects[0]->m_points[i].GetY(), m_mw->m_meshObjects[0]->m_points[i].GetZ()));
+	}
+
+	btShapeHull* hull = new btShapeHull(convexShape);
+	hull->buildHull(-0.1f);
+
+	btConvexHullShape* result = new btConvexHullShape();
+	bool updateLocalAabb = false;
+
+	for (int i = 0; i<hull->numVertices(); ++i)
+	{
+		result->addPoint(hull->getVertexPointer()[i], updateLocalAabb);
+	}
+	result->recalcLocalAabb();
+
+	delete convexShape;
+	delete hull;
+	return result;
 }
 
 Mesh::~Mesh()

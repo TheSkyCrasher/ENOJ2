@@ -5,10 +5,14 @@
 class RigidBody : public MeshObject
 {
 public:
-	RigidBody(Mesh* mesh, btCollisionShape* collisionShape, btScalar m_mass, Vector3f pos = Vector3f());
+	RigidBody(Mesh* mesh) : MeshObject(mesh), m_fallInertia(0, 0, 0) {}
 	virtual ~RigidBody();
 
+	virtual void Init();
 	virtual btRigidBody* GetPhysicsBody() { return m_physicsBody; }
+
+	void SetCollision(btCollisionShape* collisionShape) { GetMesh()->m_mw->m_collisionShape = collisionShape; }
+	void SetMass(const float& mass) { m_mass = mass; }
 
 	void* operator new(size_t i)
 	{
@@ -21,7 +25,6 @@ public:
 	}
 private:
 	btDefaultMotionState* m_motionState;
-	btCollisionShape* m_collisionShape;
 	btScalar m_mass;
 	btVector3 m_fallInertia;
 	btRigidBody* m_physicsBody;

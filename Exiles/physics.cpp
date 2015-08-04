@@ -34,6 +34,7 @@ void Physics::Delete()
 
 void Physics::AddBody(MeshObject* body)
 {
+	body->Init();
 	m_world->addRigidBody(body->GetPhysicsBody());
 	m_objects.push_back(body);
 	m_osize++;

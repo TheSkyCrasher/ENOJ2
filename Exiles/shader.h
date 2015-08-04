@@ -42,7 +42,7 @@ public:
 	void SetUniform(const std::string& name, const Vector3f& value);
 	void SetUniform(const std::string& name, const Matrix4f& value);
 
-	int GetProgram() { return m_shaderData->m_program; }
+	int GetProgram() const { return m_shaderData->m_program; }
 
 	virtual ~Shader();
 protected:

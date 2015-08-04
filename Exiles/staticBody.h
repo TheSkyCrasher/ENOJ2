@@ -5,12 +5,14 @@
 class StaticBody : public MeshObject
 {
 public:
-	StaticBody(Mesh* mesh, btCollisionShape* collisionShape, Vector3f pos = Vector3f());
-		virtual ~StaticBody();
+	StaticBody(Mesh* mesh) : MeshObject(mesh) {}
+	virtual ~StaticBody();
+
+	virtual void Init();
+	void SetCollision(btCollisionShape* collisionShape) { GetMesh()->m_mw->m_collisionShape = collisionShape; }
 
 	virtual btRigidBody* GetPhysicsBody() { return m_physicsBody; }
 private:
 	btDefaultMotionState* m_motionState;
-	btCollisionShape* m_collisionShape;
 	btRigidBody* m_physicsBody;
 };

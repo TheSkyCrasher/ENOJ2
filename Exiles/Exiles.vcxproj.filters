@@ -64,6 +64,12 @@
     <ClInclude Include="rigidBody.h">
       <Filter>Physics core</Filter>
     </ClInclude>
+    <ClInclude Include="vertex.h">
+      <Filter>Engine core\Stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="terrain.h">
+      <Filter>Engine core\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -126,6 +132,9 @@
     <ClCompile Include="staticBody.cpp">
       <Filter>Physics core</Filter>
     </ClCompile>
+    <ClCompile Include="terrain.cpp">
+      <Filter>Engine core\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine core">
@@ -176,6 +185,12 @@
       <Filter>Engine core\Shaders</Filter>
     </None>
     <None Include="Data\shaders\skybox.vp">
+      <Filter>Engine core\Shaders</Filter>
+    </None>
+    <None Include="Data\shaders\terrain.fp">
+      <Filter>Engine core\Shaders</Filter>
+    </None>
+    <None Include="Data\shaders\terrain.vp">
       <Filter>Engine core\Shaders</Filter>
     </None>
   </ItemGroup>

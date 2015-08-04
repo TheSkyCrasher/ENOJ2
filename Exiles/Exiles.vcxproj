@@ -23,6 +23,8 @@
     <ClInclude Include="rigidBody.h" />
     <ClInclude Include="skybox.h" />
     <ClInclude Include="staticBody.h" />
+    <ClInclude Include="terrain.h" />
+    <ClInclude Include="vertex.h" />
     <ClInclude Include="window.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="mesh.h" />
@@ -45,6 +47,7 @@
     <ClCompile Include="rigidBody.cpp" />
     <ClCompile Include="skybox.cpp" />
     <ClCompile Include="staticBody.cpp" />
+    <ClCompile Include="terrain.cpp" />
     <ClCompile Include="transform.cpp" />
     <ClCompile Include="window.cpp" />
     <ClCompile Include="input.cpp" />
@@ -64,6 +67,8 @@
     <None Include="Data\shaders\model.vp" />
     <None Include="Data\shaders\skybox.fp" />
     <None Include="Data\shaders\skybox.vp" />
+    <None Include="Data\shaders\terrain.fp" />
+    <None Include="Data\shaders\terrain.vp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7C6C290B-EA0C-4E3F-8D0A-54CB0A4BE3C3}</ProjectGuid>

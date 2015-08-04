@@ -30,5 +30,5 @@ private:
 
 	GLuint m_frameBuffer;
 	GLuint m_depthTexture;
-	GLuint CreateDepthTexture(unsigned int width, unsigned int height);
+	static GLuint CreateDepthTexture(unsigned int width, unsigned int height);
 };

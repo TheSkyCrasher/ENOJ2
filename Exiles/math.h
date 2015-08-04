@@ -17,7 +17,11 @@ template<typename T, unsigned int D>
 class Vector
 {
 public:
-	Vector() { }
+	Vector() 
+	{
+		for (unsigned int i = 0; i < D; i++)
+			values[i] = 0;
+	}
 
 	inline T Dot(const Vector<T, D>& r) const
 	{
@@ -236,14 +240,6 @@ public:
 		(*this)[2] = r[2];
 		(*this)[3] = r[3];
 	}
-
-	//	Vector4(const Vector<T, 3>& r)
-	//	{
-	//		(*this)[0] = r[0];
-	//		(*this)[1] = r[1];
-	//		(*this)[2] = r[2];
-	//		(*this)[3] = T(1);
-	//	}
 
 	Vector4(T x, T y, T z, T w)
 	{

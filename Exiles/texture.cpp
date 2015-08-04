@@ -16,10 +16,8 @@ TextureData::~TextureData()
 }
 
 
-Texture::Texture(const std::string& fileName, bool transparent)
+Texture::Texture(const std::string& fileName, bool transparent) : m_fileName(fileName)
 {
-	m_fileName = fileName;
-
 	std::map<std::string, TextureData*>::const_iterator it = s_resourceMap.find(fileName);
 	if (it != s_resourceMap.end())
 	{

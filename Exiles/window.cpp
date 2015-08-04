@@ -43,7 +43,6 @@ void Window::Create(int width, int height, const std::string& title)
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_DEPTH_CLAMP);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	s_isOpen = true;
 	s_width = width;

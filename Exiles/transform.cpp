@@ -2,15 +2,11 @@
 
 #include <iostream>
 
-Transform::Transform(const Vector3f& pos, const Quaternion& rot, float scale)
+Transform::Transform(const Vector3f& pos, const Quaternion& rot, float scale) : 
+	m_pos(pos), m_rot(rot), m_scale(scale), m_parentMatrix(Matrix4f().InitIdentity())
 {
-	m_pos = pos;
-	m_rot = rot;
-	m_scale = scale;
 	m_initializedOldStuff = false;
 	m_parent = 0;
-
-	m_parentMatrix = Matrix4f().InitIdentity();
 }
 
 bool Transform::HasChanged()
@@ -30,7 +26,7 @@ bool Transform::HasChanged()
 	return false;
 }
 
-void Transform::Update()
+void Transform::Update() const
 {
 	if (m_initializedOldStuff)
 	{

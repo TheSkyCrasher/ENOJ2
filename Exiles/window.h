@@ -27,9 +27,6 @@ public:
 	static float GetAspect();
 protected:
 private:
-	void operator=(const Window& display) {}
-	Window(const Window& display) {}
-
 	static int s_width;
 	static int s_height;
 

@@ -262,10 +262,8 @@ void ShaderData::CompileShader()
 	CheckShaderError(m_program, GL_VALIDATE_STATUS, true, "Invalid shader program");
 }
 
-Shader::Shader(const std::string& fileName, bool enableGeometric)
+Shader::Shader(const std::string& fileName, bool enableGeometric) : m_fileName(fileName)
 {
-	m_fileName = fileName;
-
 	std::map<std::string, ShaderData*>::const_iterator it = s_resourceMap.find(fileName);
 	if (it != s_resourceMap.end())
 	{

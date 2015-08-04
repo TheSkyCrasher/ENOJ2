@@ -15,6 +15,7 @@
 #include "grass.h"
 #include "physics.h"
 #include "MeshObject.h"
+#include "terrain.h"
 #include <vector>
 
 class Game
@@ -36,6 +37,7 @@ private:
 	DirectionalLight m_light;
 	SkyBox m_skybox;
 	Grass m_grass;
+	Terrain m_terrain;
 
 	Shader m_defaultShader;
 };

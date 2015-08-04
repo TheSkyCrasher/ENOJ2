@@ -11,7 +11,7 @@ public:
 private:
 	std::vector<int> p;
 
-	float fade(float t);
-	float lerp(float t, float a, float b);
-	float grad(int hash, float x, float y, float z);
+	static float fade(float t);
+	static float lerp(float t, float a, float b);
+	static float grad(int hash, float x, float y, float z);
 };

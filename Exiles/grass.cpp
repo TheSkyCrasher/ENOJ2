@@ -99,13 +99,11 @@ void Grass::Draw(Camera* camera, const Matrix4f& lightMVP)
 
 	m_grassTex->Bind(1);
 
-	glEnable(GL_BLEND);
 	glDisable(GL_CULL_FACE);
 	glBindVertexArray(m_VAO);
 	glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, m_grassMatrices.size());
 	glBindVertexArray(0);
 	glEnable(GL_CULL_FACE);
-	glDisable(GL_BLEND);
 }
 
 Grass::~Grass()

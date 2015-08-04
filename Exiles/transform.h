@@ -9,7 +9,7 @@ public:
 
 	Matrix4f GetTransformation() const;
 	bool HasChanged();
-	void Update();
+	void Update() const;
 	void Rotate(const Vector3f& axis, float angle);
 	void Rotate(const Quaternion& rotation);
 	void LookAt(const Vector3f& point, const Vector3f& up);
