@@ -40,6 +40,12 @@ void Game::Start()
 	ak74->SetMass(1.0f);
 	ak74->SetPos(0.0f, 2.0f, 1.0f);
 	AddToScene(ak74);
+
+	StaticBody* sven = new StaticBody(new Mesh("sven.fbx"));
+	sven->GetTransform().SetScale(0.01f);
+	sven->GetTransform().SetRot(Quaternion(Vector3f(0, 1, 0), 2.0f));
+	sven->SetPos(-2.0f, 0.14f, 1.0f);
+	m_objects.push_back(sven);
 	unsigned int renderObjects = m_objects.size();
 	while (Window::IsOpen())
 	{
