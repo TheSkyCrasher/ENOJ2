@@ -1,24 +1,6 @@
 #include "terrain.h"
 #include "stb_image.h"
 
-TerrainChunk::TerrainChunk(std::vector<Vertex> vertices, std::vector<int> indices)
-{
-	m_indicesNum = indices.size();
-	glGenBuffers(1, &m_vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
-
-	glGenBuffers(1, &m_ibo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indicesNum * sizeof(int), &indices[0], GL_STATIC_DRAW);
-}
-
-TerrainChunk::~TerrainChunk()
-{
-	if (m_vbo) glDeleteBuffers(1, &m_vbo);
-	if (m_vbo) glDeleteBuffers(1, &m_ibo);
-}
-
 Terrain::Terrain(const std::string& fileName) : m_shader("terrain")
 {
 	m_heightScale = 100.0f;

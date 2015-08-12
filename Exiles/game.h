@@ -29,7 +29,10 @@ public:
 	virtual void Init() = 0;
 	virtual void Update() = 0;
 
-	void AddToScene(MeshObject* gameObject) { m_objects.push_back(gameObject); Physics::AddBody(gameObject); }
+	Camera* GetCamera() { return m_mainCamera; }
+
+	void AddToScene(MeshObject* gameObject) { m_objects.push_back(gameObject); Physics::AddBody(gameObject); m_renderObjects++; }
+	void AddToRenderObjects(MeshObject* gameObject) { m_objects.push_back(gameObject); }
 	void SetCamera(Camera* camera) { m_mainCamera = camera; }
 private:
 	std::vector<MeshObject*> m_objects;
@@ -37,7 +40,8 @@ private:
 	DirectionalLight m_light;
 	SkyBox m_skybox;
 	Grass m_grass;
-	Terrain m_terrain;
+
+	unsigned int m_renderObjects;
 
 	Shader m_defaultShader;
 };

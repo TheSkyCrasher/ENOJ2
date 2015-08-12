@@ -29,6 +29,6 @@ public:
 	void Draw(Camera* camera);
 private:
 	Shader m_shader;
-	Mesh* m_cube;
+	Model* m_cube;
 	CubemapTexture* m_texture;
 };

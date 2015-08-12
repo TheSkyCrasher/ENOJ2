@@ -45,7 +45,7 @@ void CubemapTexture::Bind(unsigned int unit)
 
 SkyBox::SkyBox() : m_shader("skybox")
 {
-	m_cube = new Mesh("cube.obj", true);
+	m_cube = new Model("cube.obj");
 	m_texture = new CubemapTexture("skybox");
 }
 
@@ -68,7 +68,7 @@ void SkyBox::Draw(Camera* camera)
 	glDepthFunc(GL_LEQUAL);
 
 	m_shader.SetUniform("MVP", camera->GetViewProjection() * Matrix4f().InitTranslation(camera->GetPos()));
-	m_cube->Draw(false);
+	m_cube->DrawMesh(0);
 
 	glCullFace(oldCullFaceMode);
 	glDepthFunc(oldDepthFuncMode);

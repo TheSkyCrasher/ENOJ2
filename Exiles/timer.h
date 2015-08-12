@@ -5,7 +5,7 @@ class Timer
 public:
 	static void Update();
 	static float deltaTime();
-
+	static long currentTime();
 private:
 	static __int64 m_prevFrame;
 	static __int64 m_currentFrame;

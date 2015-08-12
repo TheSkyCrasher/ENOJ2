@@ -1,11 +1,27 @@
 #version 400
 
 layout (location = 0) in vec3 position;
+layout (location = 4) in ivec4 boneIndices;
+layout (location = 5) in vec4 boneWeights;
 
 uniform mat4 lightMV;
 uniform mat4 MP;
+uniform mat4 boneMatrices[100];
 
 void main()
 {
-	gl_Position = lightMV * MP * vec4(position,1.0);
+	mat4 transformMatrix;
+	if (boneWeights != vec4(0))
+	{
+		vec4 bWeights = boneWeights;
+		bWeights.w = 1.0 - dot(bWeights.xyz, vec3(1.0, 1.0, 1.0));
+
+		transformMatrix = bWeights.x * boneMatrices[boneIndices.x];
+		transformMatrix += bWeights.y * boneMatrices[boneIndices.y];
+		transformMatrix += bWeights.z * boneMatrices[boneIndices.z];
+		transformMatrix += bWeights.w * boneMatrices[boneIndices.w];
+	} else
+		transformMatrix = mat4(1);
+
+	gl_Position = lightMV * MP * transformMatrix * vec4(position,1.0);
 }

@@ -9,7 +9,7 @@
 class Window
 {
 public:
-	static void Create(int width, int height, const std::string& title);
+	static void Create(int width, int height, const std::string& title, bool fullscreen);
 	static void Close();
 
 	static void Clear(float r, float g, float b, float a);
