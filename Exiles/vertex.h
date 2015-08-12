@@ -1,6 +1,7 @@
 #pragma once
 
 #include "math.h"
+#include <cassert>
 
 struct Vertex
 {
@@ -18,4 +19,6 @@ public:
 	Vector2f texCoord;
 	Vector3f normal;
 	Vector3f tangent;
+	Vector4i boneIds;
+	Vector4f weights;
 };

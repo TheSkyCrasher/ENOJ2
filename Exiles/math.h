@@ -468,7 +468,6 @@ public:
 	}
 
 	inline void Set(unsigned int x, unsigned int y, T val) { m[x][y] = val; }
-
 	inline const T* operator[](int index) const { return m[index]; }
 	inline T* operator[](int index) { return m[index]; }
 protected:

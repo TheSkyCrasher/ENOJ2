@@ -36,3 +36,9 @@ float Timer::deltaTime()
 
 	return dt;
 }
+
+long Timer::currentTime()
+{
+	std::cout << m_currentFrame << "\n";
+	return m_currentFrame;
+}

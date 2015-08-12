@@ -1,6 +1,7 @@
 #include "window.h"
 #include <GL/glew.h>
 #include <iostream>
+#include <cassert>
 
 int Window::s_width = 0;
 int Window::s_height = 0;
@@ -9,7 +10,7 @@ SDL_Window* Window::s_window = nullptr;
 SDL_GLContext Window::s_glContext = 0;
 bool Window::s_isOpen = true;
 
-void Window::Create(int width, int height, const std::string& title)
+void Window::Create(int width, int height, const std::string& title, bool fullscreen)
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
 
@@ -28,7 +29,21 @@ void Window::Create(int width, int height, const std::string& title)
 
 	glEnable(GL_MULTISAMPLE);
 
-	s_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL);
+	SDL_DisplayMode display;
+	SDL_GetCurrentDisplayMode(0, &display);
+
+	if (!fullscreen)
+	{
+		s_width = width;
+		s_height = height;
+		s_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL);
+	} else {
+		s_width = display.w;
+		s_height = display.h;
+		s_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, s_width, s_height, SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN);
+	}
+		
+
 	s_glContext = SDL_GL_CreateContext(s_window);
 
 	SDL_GL_SetSwapInterval(1);
@@ -37,6 +52,7 @@ void Window::Create(int width, int height, const std::string& title)
     if(res != GLEW_OK)
     {
 		std::cerr << "Glew failed to initialize!" << std::endl;
+		assert(0);
     }
 
 	glFrontFace(GL_CW);
@@ -45,13 +61,9 @@ void Window::Create(int width, int height, const std::string& title)
 	glEnable(GL_DEPTH_CLAMP);
 
 	s_isOpen = true;
-	s_width = width;
-	s_height = height;
 
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
-	glEnableVertexAttribArray(3);
+	for (unsigned int i = 0; i < 6; ++i)
+		glEnableVertexAttribArray(i);
 }
 
 void Window::Close()

@@ -3,7 +3,7 @@
 void StaticBody::Init()
 {
 	m_motionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(GetPos().GetX(), GetPos().GetY(), GetPos().GetZ())));
-	btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(0, m_motionState, GetMesh()->m_mw->m_collisionShape, btVector3(0, 0, 0));
+	btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(0, m_motionState, GetModel()->GetCollisionShape(), btVector3(0, 0, 0));
 
 	m_physicsBody = new btRigidBody(rigidBodyCI);
 }

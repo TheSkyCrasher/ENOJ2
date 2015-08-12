@@ -10,8 +10,8 @@
 class MeshObject
 {
 public:
-	MeshObject(Mesh* mesh) : m_mesh(mesh) {}
-	virtual ~MeshObject() { if (m_mesh) delete m_mesh; std::cout << "mesh deleted\n"; }
+	MeshObject(Model* mesh) : m_model(mesh) {}
+	virtual ~MeshObject() { if (m_model) delete m_model; std::cout << "m_model deleted\n"; }
 
 	void RenderMesh(Shader* shader);
 	void Draw(Shader* shader, Camera* camera);
@@ -22,12 +22,14 @@ public:
 	void SetPos(const Vector3f& pos) { m_transform.SetPos(pos); }
 	const Vector3f& GetPos() { return m_transform.GetPos(); }
 
-	Mesh* GetMesh() { return m_mesh; }
+	Mesh* GetMesh(unsigned int id) { return m_model->GetMesh(id); }
+	Model* GetModel() { return m_model; }
 
 	void SetRot(float x, float y, float z, float w) { m_transform.SetRot(Quaternion(Vector4f(x, y, z, w))); }
+	void SetScale(float s) { m_transform.SetScale(s); }
 
 	inline Transform& GetTransform() { return m_transform; }
 private:
-	Mesh* m_mesh;
+	Model* m_model;
 	Transform m_transform;
 };
